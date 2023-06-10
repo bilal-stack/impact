@@ -77,6 +77,13 @@ return [
             'endpoint' => env('AWS_URL'),
         ],
 
+        'category-images' => [
+            'driver'     => 'local',
+            'root'       => storage_path('app/public/category-images'),
+            'url'        => env('APP_URL').'/storage/category-images',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

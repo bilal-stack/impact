@@ -8,10 +8,10 @@
             </div>
             <div class="col-md-7 ">
                 <div class="icon-list">
-                    <span><a href=""><i class="fa-solid fa-heart"></i></a></span>
-                    <span><a href=""><i class="fa-solid fa-cart-shopping"></i></a></span>
-                    <span><a href=""><i class="fa-solid fa-user"></i></a></span>
-                    <p><a href="">Create An Account</a></p>
+                    <span><a href="#"><i class="fa-solid fa-heart"></i></a></span>
+                    <span><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></span>
+                    <span><a href="{{url('home')}}"><i class="fa-solid fa-user"></i></a></span>
+                    <p><a href="{{route('register')}}">Create An Account</a></p>
                 </div>
                 <div class="main-menu ">
                     <nav class="navbar navbar-expand-lg navbar-light">

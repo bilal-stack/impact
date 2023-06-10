@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use App\Product;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Category extends Model
+class Category extends Model implements HasMedia
 {
+    use InteractsWithMedia;
     /**
      * The attributes that are not mass assignable.
      *

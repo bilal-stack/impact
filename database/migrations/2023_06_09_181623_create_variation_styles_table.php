@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVariationsTable extends Migration
+class CreateVariationStylesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateVariationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('variations', function (Blueprint $table) {
+        Schema::create('variation_styles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->longText('description')->nullable();
-            $table->string('image');
+            $table->string('image')->nullable();
+            $table->integer('type')->default(1)->comment('1=styles|2=options|3=no_options');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateVariationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('variations');
+        Schema::dropIfExists('variation_styles');
     }
 }
