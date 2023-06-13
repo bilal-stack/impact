@@ -16,6 +16,18 @@
                             {!! trans('titles.adminDropdownNav') !!}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item {{ (Request::is('products') || Request::is('products')) ? 'active' : null }}" href="{{ route('admin.products.list') }}">
+                                Products
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item {{ (Request::is('categories') || Request::is('categories')) ? 'active' : null }}" href="{{ route('admin.categories.list') }}">
+                                Categories
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item {{ (Request::is('subcategories') || Request::is('subcategories')) ? 'active' : null }}" href="{{ route('admin.sub.categories.list') }}">
+                                Sub Categories
+                            </a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item {{ (Request::is('roles') || Request::is('permissions')) ? 'active' : null }}" href="{{ route('laravelroles::roles.index') }}">
                                 {!! trans('titles.laravelroles') !!}
                             </a>

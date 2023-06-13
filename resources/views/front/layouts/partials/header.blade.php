@@ -1,3 +1,9 @@
+<style>
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0; /* remove the gap so it doesn't close */
+    }
+</style>
 <header class="header py-4">
     <div class="container">
         <div class="row">
@@ -24,9 +30,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">About Us</a>
                                     </li>
+
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a class="nav-link dropdown-toggle" href="{{route('shop')}}" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                             Shop Art
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
