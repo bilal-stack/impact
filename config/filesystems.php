@@ -83,7 +83,6 @@ return [
             'url'        => env('APP_URL').'/storage/category-images',
             'visibility' => 'public',
         ],
-
     ],
 
     /*

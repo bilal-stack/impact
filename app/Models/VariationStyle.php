@@ -23,7 +23,8 @@ class VariationStyle extends Model
     protected $fillable = [
         'title',
         'description',
+        'option_image',
         'image',
-        'options'
+        'type'
     ];
 }

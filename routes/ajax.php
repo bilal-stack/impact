@@ -12,6 +12,9 @@ Route::prefix('ajax')->name('ajax.')->group(function () {
     Route::get('cat-media-delete/', [\App\Http\Controllers\Ajax\AjaxController::class, 'deleteCatMedia'])->name('cat.media.delete');
     Route::post('cat-media-remove/', [\App\Http\Controllers\Ajax\AjaxController::class, 'removeTmpCatMedia'])->name('cat.media.remove');
 
+    Route::post('var-media-store/', [\App\Http\Controllers\Ajax\AjaxController::class, 'storeVariationMedia'])->name('variation.media.store');
+    Route::post('var-media-remove/', [\App\Http\Controllers\Ajax\AjaxController::class, 'removeVariationMedia'])->name('variation.media.remove');
+
     // users settings
     Route::prefix('setting')->name('settings.')->group(function () {
         Route::post('update', [\App\Http\Controllers\Ajax\AjaxController::class, 'updateSettings'])->name('update');

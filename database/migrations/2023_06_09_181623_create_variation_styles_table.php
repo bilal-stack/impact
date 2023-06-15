@@ -17,8 +17,9 @@ class CreateVariationStylesTable extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description')->nullable();
+            $table->string('option_image');
             $table->string('image')->nullable();
-            $table->integer('type')->default(1)->comment('1=styles|2=options|3=no_options');
+            $table->integer('type')->default(3)->comment('1=styles|2=options|3=no_options');
             $table->timestamps();
         });
     }

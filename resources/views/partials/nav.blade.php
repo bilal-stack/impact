@@ -28,6 +28,10 @@
                                 Sub Categories
                             </a>
                             <div class="dropdown-divider"></div>
+                            <a class="dropdown-item {{ (Request::is('variations') || Request::is('variations')) ? 'active' : null }}" href="{{ route('admin.variations.list') }}">
+                                Variations
+                            </a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item {{ (Request::is('roles') || Request::is('permissions')) ? 'active' : null }}" href="{{ route('laravelroles::roles.index') }}">
                                 {!! trans('titles.laravelroles') !!}
                             </a>

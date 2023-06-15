@@ -66,6 +66,10 @@ a.dropdown-item {
     width: 60%;
 }
 
+.header {
+    color: #ffff !important;
+    background-color: #7f032f !important;
+}
 /* header css  */
 
 
@@ -1245,3 +1249,100 @@ form.billing-form button {
     text-transform: uppercase;
 }
 /* checkout page css  */
+
+/* Dashboard page css  */
+
+section.inner-banner-dashboard {
+    background: #7f032f;
+    padding: 3% 0 2% 0;
+}
+
+.container-dashboard {
+    display: flex;
+}
+
+.sidebar {
+    width: 20%;
+    background: #f0f0f0;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+    background: #7f032f;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px;
+}
+
+.content {
+    width: 80%;
+    padding: 20px;
+}
+
+.widget {
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.widget h2 {
+    margin-bottom: 10px;
+}
+
+.widget p {
+    font-size: 18px;
+}
+
+.widget:first-child {
+    background-color: #f0f0f0;
+}
+
+.widget:last-child {
+    background-color: #f0f0f0;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile {
+    margin-top: 20px;
+}
+
+.profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+
+/* Dashboard page css  */

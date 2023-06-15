@@ -86,6 +86,78 @@ class AjaxController extends Controller
     }
 
     /**
+     * Store Variation Option Image
+     *
+     * @throws
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function storeVariationMedia(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:5000']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'error' => $validator->errors()
+                ]);
+        }
+
+        $path = storage_path('app/public/variation-option-images/');
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        $file = $request->file('file');
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        $file->move($path, $name);
+
+        return Response::json(
+            [
+                'success' => true,
+                'name' => $name,
+                'original_name' => $file->getClientOriginalName(),
+            ]);
+    }
+
+    /**
+     * Remove Temporary Gig Media
+     *
+     * @throws
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function removeVariationMedia(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => ['required', 'string']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'error' => $validator->errors()
+                ]);
+        }
+
+        $path = storage_path('app/public/variation-option-images');
+
+        if (File::exists($path . '/' . $request->file)) {
+            File::delete($path . '/' . $request->file);
+        }
+
+        return Response::json(
+            [
+                'success' => true,
+                'data' => null
+            ]);
+
+    }
+
+    /**
      * Store Gig Media Temporary
      *
      * @throws

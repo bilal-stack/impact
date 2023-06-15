@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
 {
@@ -17,7 +18,6 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::active()->paginate(15);
-
         return view('category.list')->with(compact('categories'));
     }
 
@@ -58,6 +58,7 @@ class CategoryController extends Controller
         }
 
         $category->subCategories()->attach($request->sub_categories);
+        $this->deleteTempFolder();
 
         return redirect()->route('admin.categories.list')->with('success', 'Successfully created');
     }
@@ -85,7 +86,7 @@ class CategoryController extends Controller
         $subCategories = SubCategory::active()->whereDoesntHave('categories', function ($query) use ($category) {
             $query->where('category_id', $category->id);
         })->get();
-//dd($category->subCategories);
+
         return view('category.edit')->with(compact('subCategories', 'category'));
     }
 
@@ -119,6 +120,7 @@ class CategoryController extends Controller
         }
 
         $category->subCategories()->sync($request->sub_categories);
+        $this->deleteTempFolder();
 
         return redirect()->route('admin.categories.list')->with('success', 'Created Successfully');
     }
@@ -132,5 +134,16 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * remove temp images.
+     *
+     */
+    private function deleteTempFolder()
+    {
+        if (File::exists(storage_path('tmp/uploads/' . Auth::id()))) {
+            File::deleteDirectory(storage_path('tmp/uploads/' . Auth::id()));
+        }
     }
 }

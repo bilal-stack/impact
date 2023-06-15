@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-5">
                 <div class="logo">
-                    <a href=""><img src="{{asset('front/assets/images/logo.png')}}" alt=""></a>
+                    <a href="{{url('/')}}"><img src="{{asset('front/assets/images/logo.png')}}" alt=""></a>
                 </div>
             </div>
             <div class="col-md-7 ">
@@ -17,7 +17,16 @@
                     <span><a href="#"><i class="fa-solid fa-heart"></i></a></span>
                     <span><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></span>
                     <span><a href="{{url('home')}}"><i class="fa-solid fa-user"></i></a></span>
-                    <p><a href="{{route('register')}}">Create An Account</a></p>
+                    @guest
+                        <p><a href="{{route('register')}}">Create An Account</a></p>
+                        @else
+                        <p>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                        </p>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @endguest
                 </div>
                 <div class="main-menu ">
                     <nav class="navbar navbar-expand-lg navbar-light">
@@ -25,24 +34,24 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                     <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                        <a class="nav-link active" aria-current="page" href="{{url('/')}}">Home</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">About Us</a>
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="{{route('shop')}}" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a class="nav-link" href="{{route('shop')}}" id="navbarDropdown">
                                             Shop Art
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><a class="dropdown-item" href="#">Flora Art</a></li>
-                                            <li><a class="dropdown-item" href="#">Big Cat</a></li>
-                                            <li><a class="dropdown-item" href="#">Equine</a></li>
+                                            @foreach($navCat as $cat)
+                                                <li><a class="dropdown-item" href="#">{{$cat->title}}</a></li>
+                                            @endforeach
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Faq's</a>
+                                        <a class="nav-link" href="#">Faqs</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Contact Us</a>
@@ -71,7 +80,7 @@
                     <div class="fixed-top dineuron-menu">
                         <div class="flex-center p-5">
                             <ul class="nav flex-column">
-                                <li class="nav-item delay-1"><a class="nav-link" href="#">HOME</a></li>
+                                <li class="nav-item delay-1"><a class="nav-link" href="{{url('/')}}">HOME</a></li>
                                 <li class="nav-item delay-2"><a class="nav-link" href="#">ABOUT US</a></li>
                                 <li class="nav-item dropdown  delay-3">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"

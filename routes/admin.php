@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 'twostep', 'checkblocked']], function () {
@@ -10,7 +11,7 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
 
     Route::resource('users', 'UsersManagementController', [
         'names' => [
-            'index'   => 'users',
+            'index' => 'users',
             'destroy' => 'user.destroy',
         ],
         'except' => [
@@ -21,7 +22,7 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
 
     Route::resource('themes', 'ThemesManagementController', [
         'names' => [
-            'index'   => 'themes',
+            'index' => 'themes',
             'destroy' => 'themes.destroy',
         ],
     ]);
@@ -45,6 +46,22 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
         Route::put('subcategories/{subCategory}/update', [\App\Http\Controllers\SubCategoryController::class, 'update'])->name('sub.categories.update');
         Route::delete('subcategories/{subCategory}', [\App\Http\Controllers\SubCategoryController::class, 'destroy'])->name('sub.categories.destroy');
 
+    });
+
+    Route::name('admin.')->prefix('variations')->group(function () {
+        Route::get('create', [\App\Http\Controllers\Variations\VariationsController::class, 'create'])->name('variations.create');
+        Route::post('store', [\App\Http\Controllers\Variations\VariationsController::class, 'store'])->name('variations.store');
+        Route::get('index', [\App\Http\Controllers\Variations\VariationsController::class, 'index'])->name('variations.list');
+        Route::get('/{id}/edit', [\App\Http\Controllers\Variations\VariationsController::class, 'edit'])->name('variations.edit');
+        Route::put('/{id}/update', [\App\Http\Controllers\Variations\VariationsController::class, 'update'])->name('variations.update');
+
+        Route::name('variations.sizes.')->prefix('sizes')->group(function () {
+            Route::get('create', [\App\Http\Controllers\Variations\SizeController::class, 'create'])->name('create');
+            Route::post('store', [\App\Http\Controllers\Variations\SizeController::class, 'store'])->name('store');
+            Route::get('index', [\App\Http\Controllers\Variations\SizeController::class, 'index'])->name('list');
+            Route::get('/{id}/edit', [\App\Http\Controllers\Variations\SizeController::class, 'edit'])->name('edit');
+            Route::put('/{id}/update', [\App\Http\Controllers\Variations\SizeController::class, 'update'])->name('update');
+        });
     });
 
     Route::name('admin.')->prefix('products')->group(function () {

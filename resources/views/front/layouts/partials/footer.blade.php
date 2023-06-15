@@ -15,11 +15,11 @@
                 </div>
                 <div class="footer-link">
                     <ul>
-                        <li><a href="{{url('/')}}"></a>Home </li>
-                        <li><a href="#"></a>About Us </li>
-                        <li><a href="#"></a>Shop Art </li>
-                        <li><a href="#"></a>Faq’s </li>
-                        <li><a href="#"></a>Contact Us </li>
+                        <li><a href="{{url('/')}}" style="color: white; text-decoration: none">Home </a></li>
+                        <li><a href="#" style="color: white; text-decoration: none">About Us </a></li>
+                        <li><a href="{{route('shop')}}" style="color: white; text-decoration: none">Shop Art </a></li>
+                        <li><a href="#" style="color: white; text-decoration: none">Faqs </a></li>
+                        <li><a href="#" style="color: white; text-decoration: none">Contact Us</a> </li>
                     </ul>
                 </div>
                 <form action="" class="footer-form">

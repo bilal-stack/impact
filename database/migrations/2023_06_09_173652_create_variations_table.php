@@ -17,7 +17,8 @@ class CreateVariationsTable extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description')->nullable();
-            $table->string('image');
+            $table->string('option_image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
