@@ -67,24 +67,42 @@ class VariationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Variation $variation
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Variation $variation)
     {
-        //
+        return view('variations.edit')->with(compact( 'variation'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Variation $variation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Variation $variation)
     {
-        //
+        $request->validate([
+            'title'        => ['required', 'string', 'max:255'],
+            'description'  => ['nullable', 'string', 'max:255'],
+            'document'     => ['nullable', 'max:5000']
+        ]);
+
+        $variation->update($request->except('_token', '_method'));
+
+        if ($request->has('document')) {
+            $file = $variation->option_image;
+
+            $variation->update([
+                'option_image'  => 'variation-option-images/' . $request->document
+            ]);
+
+            deleteTempFolder('storage/'. $file, 'file');
+        }
+
+        return redirect()->route('admin.variations.list')->with('success', 'Edited Successfully');
     }
 
     /**

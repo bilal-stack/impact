@@ -52,8 +52,8 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
         Route::get('create', [\App\Http\Controllers\Variations\VariationsController::class, 'create'])->name('variations.create');
         Route::post('store', [\App\Http\Controllers\Variations\VariationsController::class, 'store'])->name('variations.store');
         Route::get('index', [\App\Http\Controllers\Variations\VariationsController::class, 'index'])->name('variations.list');
-        Route::get('/{id}/edit', [\App\Http\Controllers\Variations\VariationsController::class, 'edit'])->name('variations.edit');
-        Route::put('/{id}/update', [\App\Http\Controllers\Variations\VariationsController::class, 'update'])->name('variations.update');
+        Route::get('/{variation}/edit', [\App\Http\Controllers\Variations\VariationsController::class, 'edit'])->name('variations.edit');
+        Route::put('/{variation}/update', [\App\Http\Controllers\Variations\VariationsController::class, 'update'])->name('variations.update');
 
         Route::name('variations.sizes.')->prefix('sizes')->group(function () {
             Route::get('create', [\App\Http\Controllers\Variations\SizeController::class, 'create'])->name('create');

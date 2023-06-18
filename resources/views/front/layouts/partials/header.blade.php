@@ -37,7 +37,7 @@
                                         <a class="nav-link active" aria-current="page" href="{{url('/')}}">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">About Us</a>
+                                        <a class="nav-link" href="{{route('about.us')}}">About Us</a>
                                     </li>
 
                                     <li class="nav-item dropdown">
@@ -51,10 +51,10 @@
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Faqs</a>
+                                        <a class="nav-link" href="{{route('faqs')}}">Faqs</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Contact Us</a>
+                                        <a class="nav-link" href="{{route('contact.us')}}">Contact Us</a>
                                     </li>
                                 </ul>
                                 <form class="d-flex">

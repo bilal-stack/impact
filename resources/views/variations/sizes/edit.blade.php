@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Edit Variation - {{$variation->title}}
+    Edit Variation Size - {{$variation->title}}
 @endsection
 
 @section('template_fastload_css')
@@ -15,18 +15,18 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            Edit Category - {{$variation->title}}
+                            Edit Variation Size - {{$variation->title}}
                             <div class="pull-right">
-                                <a href="{{ route('admin.variations.list') }}" class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="Back to Sub Categories">
+                                <a href="{{ route('admin.variations.sizes.list') }}" class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="Back to Sub Categories">
                                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
-                                    Back to Categories
+                                    Back to Variations Sizes
                                 </a>
                             </div>
                         </div>
                     </div>
 
                     <div class="card-body">
-                        {!! Form::open(array('route' => ['admin.variations.update', $variation->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'needs-validation', 'enctype' => 'multipart/form-data')) !!}
+                        {!! Form::open(array('route' => ['admin.variations.sizes.update', $variation->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'needs-validation', 'enctype' => 'multipart/form-data')) !!}
 
                         {!! csrf_field() !!}
 
@@ -68,27 +68,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group has-feedback row {{ $errors->has('image') ? ' has-error ' : '' }}">
-                            {!! Form::label('image', 'Image', array('class' => 'col-md-3 control-label')); !!}
-                            <div class="col-md-9">
-                                <div class="input-group">
-                                    <img width="50%" src="{{asset('storage/'. $variation->option_image)}}">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">Variation Image (it will replace the old one)</label>
-                            <div class="needsclick-sec needsclick dropzone" id="document-dropzone" ></div>
-                            @if ($errors->has('document'))
-                                <span class="help-block">
-                                     @foreach($errors->get('document') as $error)
-                                        <strong>{{ $error }}</strong>
-                                    @endforeach
-                                </span>
-                            @endif
-                        </div>
-
                         {!! Form::button('Update', array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','type' => 'submit' )) !!}
                         {!! Form::close() !!}
                     </div>
@@ -103,18 +82,4 @@
 @section('footer_scripts')
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>tinymce.init({selector:'textarea'});</script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js" integrity="sha512-U2WE1ktpMTuRBPoCFDzomoIorbOyUv0sP8B+INA3EzNAhehbzED1rOJg6bCqPf/Tuposxb5ja/MAUnC8THSbLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script>
-        let getStoreVarMediaRoute = "{{route('ajax.variation.media.store')}}";
-        let getRemoveVarMediaRoute = "{{route('ajax.variation.media.remove')}}";
-
-        let project = '';
-        @if(isset($project) && $project->document)
-            project = {!! json_encode($project->document) !!};
-        @endif
-    </script>
-
-    <script src="{{asset('js/admin/variation-dropzone.js')}}"></script>
 @endsection

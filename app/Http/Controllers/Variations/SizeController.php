@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Variations;
 
 use App\Http\Controllers\Controller;
+use App\Models\Variation;
 use App\Models\VariationSize;
 use Illuminate\Http\Request;
 
@@ -69,7 +70,8 @@ class SizeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $variation = VariationSize::findOrFail($id);
+        return view('variations.sizes.edit')->with(compact('variation'));
     }
 
     /**
@@ -81,7 +83,16 @@ class SizeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $variation = VariationSize::findOrFail($id);
+
+        $request->validate([
+            'title'        => ['required', 'string', 'max:255'],
+            'description'  => ['nullable', 'string', 'max:255']
+        ]);
+
+        $variation->update($request->except('_token', '_method'));
+
+        return redirect()->route('admin.variations.sizes.list')->with('success', 'Created Successfully');
     }
 
     /**

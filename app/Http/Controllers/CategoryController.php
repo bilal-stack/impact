@@ -58,7 +58,7 @@ class CategoryController extends Controller
         }
 
         $category->subCategories()->attach($request->sub_categories);
-        $this->deleteTempFolder();
+        deleteTempFolder('tmp/uploads/' . Auth::id());
 
         return redirect()->route('admin.categories.list')->with('success', 'Successfully created');
     }
@@ -120,9 +120,9 @@ class CategoryController extends Controller
         }
 
         $category->subCategories()->sync($request->sub_categories);
-        $this->deleteTempFolder();
+        deleteTempFolder('tmp/uploads/' . Auth::id());
 
-        return redirect()->route('admin.categories.list')->with('success', 'Created Successfully');
+        return redirect()->route('admin.categories.list')->with('success', 'Edited Successfully');
     }
 
     /**
@@ -140,10 +140,10 @@ class CategoryController extends Controller
      * remove temp images.
      *
      */
-    private function deleteTempFolder()
-    {
-        if (File::exists(storage_path('tmp/uploads/' . Auth::id()))) {
-            File::deleteDirectory(storage_path('tmp/uploads/' . Auth::id()));
-        }
-    }
+//    private function deleteTempFolder()
+//    {
+//        if (File::exists(storage_path('tmp/uploads/' . Auth::id()))) {
+//            File::deleteDirectory(storage_path('tmp/uploads/' . Auth::id()));
+//        }
+//    }
 }

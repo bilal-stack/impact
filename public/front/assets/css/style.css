@@ -14,10 +14,12 @@
     color: #ffff !important;
     background-color: #8e0028 !important;
 }
+
 a.dropdown-item {
     color: #000 !important;
     padding: 6px 14px !important;
 }
+
 .main-menu nav.navbar.navbar-expand-lg.navbar-light ul li a {
     color: #fff;
     font-size: 16px;
@@ -70,8 +72,8 @@ a.dropdown-item {
     color: #ffff !important;
     background-color: #7f032f !important;
 }
-/* header css  */
 
+/* header css  */
 
 
 /* banner css  */
@@ -83,6 +85,7 @@ a.dropdown-item {
     padding: 17% 0 55px 0;
     margin-top: -11%;
 }
+
 h1.text-center.ml-5 {
     margin-left: 14%;
 }
@@ -496,8 +499,6 @@ form.footer-form button {
 }
 
 
-
-
 /* Product detail page css  */
 section.inner-banner {
     background: #7f032f;
@@ -535,7 +536,6 @@ section.product-sec.my-5 .col-md-5 {
     border-radius: 4px;
     height: 60px;
 }
-
 
 
 .product-border .row .col-md-2 {
@@ -612,8 +612,8 @@ section.product-sec.my-5 .col-md-5 {
 
     /* for box shadow for glass effect */
     box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85),
-        0 0 7px 7px rgba(0, 0, 0, 0.25),
-        inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+    0 0 7px 7px rgba(0, 0, 0, 0.25),
+    inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
 
     /*for hide the glass by default*/
     display: none;
@@ -682,7 +682,7 @@ section.product-sec.my-5 .col-md-5 {
     color: #c1c1c1;
 }
 
-.row.icon-menu .col  a {
+.row.icon-menu .col a {
     color: #000;
     font-size: 45px;
     text-decoration: none;
@@ -723,6 +723,7 @@ section.product-sec.my-5 .col-md-5 {
     margin-left: -13%;
     width: 120%;
 }
+
 .row.icon-menu .col p {
     text-align: center;
     margin-top: 7%;
@@ -755,16 +756,6 @@ section.product-sec.my-5 .col-md-5 {
 }
 
 /* product flora art page  */
-
-
-
-
-
-
-
-
-
-
 
 
 /* mobile menu css  */
@@ -983,7 +974,6 @@ section.product-sec.my-5 .col-md-5 {
 }
 
 
-
 /* login page css  */
 
 .Login-sec {
@@ -1151,11 +1141,18 @@ p.account {
 tr.cart-table-row td img {
     width: 50%;
 }
-tr.cart-table-row td a {font-size: 18px;color: #8e0028;font-family: 'Lato';font-weight: 600;}
+
+tr.cart-table-row td a {
+    font-size: 18px;
+    color: #8e0028;
+    font-family: 'Lato';
+    font-weight: 600;
+}
 
 tr.cart-table-row td {
     font-size: 17px;
 }
+
 tr.cart-table-row td p {
     border: 1px solid #8b8b8b;
     width: 25px;
@@ -1169,10 +1166,12 @@ tr.cart-table-row td p i {
     justify-content: center;
     margin-top: 12%;
 }
+
 .cart-table table thead {
     background: #8e0028;
     color: #fff;
 }
+
 form.coupon-form input {
     padding: 7px 18px;
     border-radius: 4px;
@@ -1187,11 +1186,17 @@ input#submite {
     margin-left: -27%;
     font-weight: 600;
 }
-.update-btn {text-align: end;margin-top: 2%;}
-.update-btn a{
+
+.update-btn {
+    text-align: end;
+    margin-top: 2%;
+}
+
+.update-btn a {
     font-family: 'against-regular', sans-serif;
     font-size: 13px;
 }
+
 .Cart-totals {
     background: #f2f2f2;
     padding: 18px 18px;
@@ -1212,7 +1217,11 @@ input#submite {
     border-bottom: 1px solid #a3a3a3;
     padding-top: 3%;
 }
-.last-cart-btn a {padding: 2% 41%;}
+
+.last-cart-btn a {
+    padding: 2% 41%;
+}
+
 /* cart page css  */
 
 /* checkout page css  */
@@ -1248,6 +1257,7 @@ form.billing-form button {
     font-weight: 600;
     text-transform: uppercase;
 }
+
 /* checkout page css  */
 
 /* Dashboard page css  */
@@ -1344,5 +1354,111 @@ h2 {
     margin-bottom: 10px;
 }
 
-
 /* Dashboard page css  */
+
+/* About us css */
+#aboutpage section.inner-banner {
+    background: #000;
+    padding: 7% 0 7% 0;
+    margin-top: 0%;
+}
+
+#aboutpage section.about-section {
+    padding: 70px 40px 70px 40px;
+    background-color: #015F65;
+}
+
+#aboutpage .about-info {
+    padding: 0px 20px 0px 0px;
+}
+
+#aboutpage .about-info h1 {
+    font-family: 'against-regular', sans-serif;
+    color: #FFFFFF;
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+#aboutpage section.about-section {
+    margin-bottom: 0px !important;
+}
+
+#aboutpage .about-info p {
+    color: #fff;
+    font-size: 16px;
+    max-width: 100%;
+    line-height: 1.6;
+    font-family: lato;
+}
+
+#aboutpage .about-img img {
+    width: 100%;
+}
+
+
+/* CONTACT FORM SEC  */
+#contactpage section.inner-banner {
+    background: #000;
+    padding: 7% 0 7% 0;
+    margin-top: 0%;
+}
+
+#contactpage .contact-form {
+    background-image: url(../images/contactus-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 9% 0 4% 0;
+}
+
+#contactpage .about-info h1 {
+    color: #fff;
+    font-size: 51px;
+    text-align: center;
+    font-weight: 600;
+    font-family: 'against-regular', sans-serif;
+    margin-bottom: 20px;
+}
+
+#contactpage .conect-form form {
+    width: 100%;
+}
+
+#contactpage .header {
+    color: #ffff !important;
+    background-color: #7f032f !important;
+}
+
+#contactpage .conect-form form input, #contactpage .conect-form form textarea {
+    padding: 9px;
+    border: transparent;
+    background: #FFFFFF61;
+    margin: 10px 0;
+    border-radius: 6px;
+}
+
+#contactpage .conect-form form textarea {
+    height: 100px;
+}
+
+#contactpage .conect-form form input::placeholder, #contactpage .conect-form form textarea::placeholder {
+    color: #ffffff7a !important;
+}
+
+#contactpage .form-control:focus {
+    box-shadow: none !important;
+}
+
+#contactpage #submit {
+    background: #7F032F;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    height: 40px;
+    border-radius: 6px;
+    padding: 7px;
+}
+
+/* CONTACT FORM SEC  */

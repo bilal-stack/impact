@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['web', 'checkblocked']], function () {
     Route::get('/', 'Front\HomeController@index')->name('welcome');
     Route::get('/terms', 'TermsController@terms')->name('terms');
+    Route::get('/faqs',  [App\Http\Controllers\Front\HomeController::class, 'faqs'])->name('faqs');
+    Route::get('/about-us',  [App\Http\Controllers\Front\HomeController::class, 'about'])->name('about.us');
+    Route::get('/contact-us', [App\Http\Controllers\Front\HomeController::class, 'contact'])->name('contact.us');
+    Route::get('/shop', [\App\Http\Controllers\Front\HomeController::class, 'shop'])->name('shop');
 });
 
 // Authentication Routes
@@ -40,9 +44,6 @@ Route::group(['middleware' => ['web', 'activity', 'checkblocked']], function () 
 
     // Route to for user to reactivate their user deleted account.
     Route::get('/re-activate/{token}', ['as' => 'user.reactivate', 'uses' => 'RestoreUserController@userReActivate']);
-
-
-    Route::get('/shop', [\App\Http\Controllers\Front\HomeController::class, 'shop'])->name('shop');
 });
 
 // Registered and Activated User Routes

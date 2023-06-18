@@ -27,4 +27,34 @@ class HomeController extends Controller
         $categories = Category::active()->get();
         return view('front.shop')->with(compact('categories'));
     }
+
+    /**
+     * Show the contact Us.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function contact()
+    {
+        return view('front.contact');
+    }
+
+    /**
+     * Show the about Us.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function about()
+    {
+        return view('front.about');
+    }
+
+    /**
+     * Show the Faqs.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function faqs()
+    {
+        return view('front.faqs');
+    }
 }
