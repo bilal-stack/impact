@@ -13,7 +13,8 @@ class Product extends Model
      */
     protected $guarded = [
         'id',
-        'category_id'
+        'category_id',
+        'sub_category_id'
     ];
 
     /**

@@ -21,7 +21,9 @@ class CreateProductsTable extends Migration
             $table->longText('description')->nullable();
             $table->longText('specifications')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('sub_category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade');
             $table->boolean('active')->default(1);
             $table->timestamps();
         });
