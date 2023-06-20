@@ -39,7 +39,7 @@ class VariationsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'        => ['required', 'string', 'max:255', 'exists:variations,title'],
+            'title'        => ['required', 'string', 'max:255', 'unique:variations,title'],
             'description'  => ['nullable', 'string', 'max:5000'],
             'document'     => ['required', 'max:9000']
         ]);

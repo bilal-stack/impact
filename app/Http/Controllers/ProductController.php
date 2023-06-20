@@ -15,6 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::active()->paginate(2);
+        //dd($products);
         return view('product.list')->with(compact('products'));
     }
 
@@ -25,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
