@@ -41,7 +41,7 @@ class VariationsController extends Controller
         $request->validate([
             'title'        => ['required', 'string', 'max:255', 'exists:variations,title'],
             'description'  => ['nullable', 'string', 'max:5000'],
-            'document'     => ['required', 'max:5000']
+            'document'     => ['required', 'max:9000']
         ]);
 
         Variation::create([
