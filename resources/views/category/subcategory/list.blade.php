@@ -98,12 +98,6 @@
                                         <td class="hidden-sm hidden-xs hidden-md">{{$category->created_at}}</td>
                                         <td class="hidden-sm hidden-xs hidden-md">{{$category->updated_at}}</td>
                                         <td>
-                                            {!! Form::open(array('url' =>  route('admin.sub.categories.destroy', $category->slug), 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
-                                            {!! Form::hidden('_method', 'DELETE') !!}
-                                            {!! Form::button("Delete", array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Category', 'data-message' => 'Are you sure you want to delete this category ?')) !!}
-                                            {!! Form::close() !!}
-                                        </td>
-                                        <td>
                                             <a class="btn btn-sm btn-info btn-block" href="{{ route('admin.sub.categories.edit', $category->slug) }}" data-toggle="tooltip" title="Edit">
                                                 Edit
                                             </a>
