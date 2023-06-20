@@ -40,7 +40,7 @@ class VariationsController extends Controller
     {
         $request->validate([
             'title'        => ['required', 'string', 'max:255'],
-            'description'  => ['nullable', 'string', 'max:255'],
+            'description'  => ['nullable', 'string', 'max:5000'],
             'document'     => ['required', 'max:5000']
         ]);
 
@@ -86,7 +86,7 @@ class VariationsController extends Controller
     {
         $request->validate([
             'title'        => ['required', 'string', 'max:255'],
-            'description'  => ['nullable', 'string', 'max:255'],
+            'description'  => ['nullable', 'string', 'max:5000'],
             'document'     => ['nullable', 'max:5000']
         ]);
 

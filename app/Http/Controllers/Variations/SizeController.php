@@ -40,7 +40,7 @@ class SizeController extends Controller
     {
         $request->validate([
             'title'        => ['required', 'string', 'max:255'],
-            'description'  => ['nullable', 'string', 'max:255']
+            'description'  => ['nullable', 'string', 'max:5000']
         ]);
 
         VariationSize::create([
@@ -87,7 +87,7 @@ class SizeController extends Controller
 
         $request->validate([
             'title'        => ['required', 'string', 'max:255'],
-            'description'  => ['nullable', 'string', 'max:255']
+            'description'  => ['nullable', 'string', 'max:5000']
         ]);
 
         $variation->update($request->except('_token', '_method'));

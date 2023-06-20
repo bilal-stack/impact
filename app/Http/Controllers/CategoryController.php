@@ -43,7 +43,7 @@ class CategoryController extends Controller
         $request->validate([
             'title'        => ['required', 'string', 'max:255', 'unique:categories,title'],
             'tagline'      => ['nullable', 'string', 'max:255'],
-            'description'  => ['nullable', 'string', 'max:255'],
+            'description'  => ['nullable', 'string', 'max:5000'],
             'document'     => ['required', 'max:5000']
         ]);
 
@@ -103,7 +103,7 @@ class CategoryController extends Controller
         $request->validate([
             'title'        => ['required', 'string', 'max:255'],
             'tagline'      => ['nullable', 'string', 'max:255'],
-            'description'  => ['nullable', 'string', 'max:255'],
+            'description'  => ['nullable', 'string', 'max:5000'],
             'document'     => ['nullable', 'max:5000']
         ]);
 
