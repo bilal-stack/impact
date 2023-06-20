@@ -57,7 +57,10 @@ class CategoryController extends Controller
             $category->addMedia(storage_path('tmp/uploads/' . Auth::id() . '/' . $request->document))->toMediaCollection('category-images', 'category-images');
         }
 
-        $category->subCategories()->attach($request->sub_categories);
+        if ($request->has('sub_categories')) {
+            $category->subCategories()->attach($request->sub_categories);
+        }
+
         deleteTempFolder('tmp/uploads/' . Auth::id());
 
         return redirect()->route('admin.categories.list')->with('success', 'Successfully created');

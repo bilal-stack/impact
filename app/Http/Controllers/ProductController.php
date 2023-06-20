@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -26,7 +28,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $categories = Category::all();
+        return view('product.create')->with(compact('categories'));
     }
 
     /**
@@ -37,7 +40,31 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title'        => ['required', 'string', 'max:255'],
+            'tagline'      => ['nullable', 'string', 'max:255'],
+            'description'  => ['nullable', 'string', 'max:5000'],
+            'document'     => ['required', 'max:5000']
+        ]);
+
+        $product = Product::create([
+            'title'       => $request->title,
+            'tagline'     => $request->tagline,
+            'description' => $request->description,
+            'active'      => 0
+        ]);
+
+        if ($request->has('document')) {
+            $product->addMedia(storage_path('tmp/uploads/' . Auth::id() . '/' . $request->document))->toMediaCollection('product-images', 'product-images');
+        }
+
+        if ($request->has('sub_categories')) {
+            $product->subCategories()->attach($request->sub_categories);
+        }
+
+        deleteTempFolder('tmp/uploads/' . Auth::id());
+
+        return redirect()->route('admin.products.list')->with('success', 'Successfully created');
     }
 
     /**

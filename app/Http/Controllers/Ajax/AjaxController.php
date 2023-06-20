@@ -123,7 +123,7 @@ class AjaxController extends Controller
     }
 
     /**
-     * Remove Temporary Gig Media
+     * Remove Temporary Variation Media
      *
      * @throws
      * @param Request $request
@@ -158,7 +158,7 @@ class AjaxController extends Controller
     }
 
     /**
-     * Store Gig Media Temporary
+     * Store Cat Media Temporary
      *
      * @throws
      * @param Request $request
@@ -195,7 +195,7 @@ class AjaxController extends Controller
     }
 
     /**
-     * Store Gig Media Temporary
+     * Store Cat Media Temporary
      *
      * @throws
      * @param Request $request
@@ -226,13 +226,85 @@ class AjaxController extends Controller
     }
 
     /**
-     * Remove Temporary Gig Media
+     * Remove Temporary Cat Media
      *
      * @throws
      * @param Request $request
      * @return JsonResponse
      */
     public function removeTmpCatMedia(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => ['required', 'string']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'error' => $validator->errors()
+                ]);
+        }
+
+        $path = storage_path('tmp/uploads');
+
+        if (File::exists($path . '/' . $request->file)) {
+            File::delete($path . '/' . $request->file);
+        }
+
+        return Response::json(
+            [
+                'success' => true,
+                'data' => null
+            ]);
+
+    }
+
+    /**
+     * Store Product Media Temporary
+     *
+     * @throws
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function storeProductMedia(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:5000']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'error' => $validator->errors()
+                ]);
+        }
+
+        $path = storage_path('tmp/uploads/' . Auth::id());
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        $file = $request->file('file');
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        $file->move($path, $name);
+
+        return Response::json(
+            [
+                'success' => true,
+                'name' => $name,
+                'original_name' => $file->getClientOriginalName(),
+            ]);
+    }
+
+    /**
+     * Remove Temporary Product Media
+     *
+     * @throws
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function removeTmpProductMedia(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'file' => ['required', 'string']

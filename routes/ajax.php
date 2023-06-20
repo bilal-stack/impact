@@ -15,6 +15,9 @@ Route::prefix('ajax')->name('ajax.')->group(function () {
     Route::post('var-media-store/', [\App\Http\Controllers\Ajax\AjaxController::class, 'storeVariationMedia'])->name('variation.media.store');
     Route::post('var-media-remove/', [\App\Http\Controllers\Ajax\AjaxController::class, 'removeVariationMedia'])->name('variation.media.remove');
 
+    Route::post('product-media-store/', [\App\Http\Controllers\Ajax\AjaxController::class, 'storeProductMedia'])->name('product.media.store');
+    Route::post('product-media-remove/', [\App\Http\Controllers\Ajax\AjaxController::class, 'removeTmpProductMedia'])->name('product.media.remove');
+
     // users settings
     Route::prefix('setting')->name('settings.')->group(function () {
         Route::post('update', [\App\Http\Controllers\Ajax\AjaxController::class, 'updateSettings'])->name('update');

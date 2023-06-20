@@ -66,6 +66,8 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
 
     Route::name('admin.')->prefix('products')->group(function () {
         Route::get('index', [\App\Http\Controllers\ProductController::class, 'index'])->name('products.list');
+        Route::get('create', [\App\Http\Controllers\ProductController::class, 'create'])->name('products.create');
+        Route::post('store', [\App\Http\Controllers\ProductController::class, 'store'])->name('products.store');
     });
 
 });
