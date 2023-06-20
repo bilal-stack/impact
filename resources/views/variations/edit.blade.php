@@ -19,7 +19,7 @@
                             <div class="pull-right">
                                 <a href="{{ route('admin.variations.list') }}" class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="Back to Sub Categories">
                                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
-                                    Back to Categories
+                                    Back to Variations
                                 </a>
                             </div>
                         </div>

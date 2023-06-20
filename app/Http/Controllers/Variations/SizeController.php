@@ -39,7 +39,7 @@ class SizeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'        => ['required', 'string', 'max:255'],
+            'title'        => ['required', 'string', 'max:255', 'exists:variation_sizes,title'],
             'description'  => ['nullable', 'string', 'max:5000']
         ]);
 

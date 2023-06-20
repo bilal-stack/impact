@@ -136,7 +136,7 @@
                             @endif
                         </div>
 
-                        {!! Form::button('Create', array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','type' => 'submit' )) !!}
+                        {!! Form::button('Update', array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','type' => 'submit' )) !!}
                         {!! Form::close() !!}
                     </div>
 
