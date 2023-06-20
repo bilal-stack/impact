@@ -46,15 +46,15 @@
                                     </span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="/variations/create">
+                                    <a class="dropdown-item" href={{url('variations/create')}}>
                                         <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
                                         Create New Variation
                                     </a>
-                                    <a class="dropdown-item" href="/variations/sizes/index">
+                                    <a class="dropdown-item" href="{{url('variations/sizes/index')}}">
                                         <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
                                        Variation Sizes
                                     </a>
-                                    <a class="dropdown-item" href="/variations/create">
+                                    <a class="dropdown-item" href="{{url('variations/create')}}">
                                         <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
                                        Variation Styles
                                     </a>
