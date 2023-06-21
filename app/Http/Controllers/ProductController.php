@@ -119,12 +119,15 @@ class ProductController extends Controller
      * Attach product variation Sizes.
      *
      * @param  Product $product
+     * @param  Variation $variation
      * @return \Illuminate\Http\Response
      */
-    public function attachVariationSizes(Product $product)
+    public function attachVariationSizes(Product $product, Variation $variation)
     {
+        dd($product,$variation);
+
         $sizes = VariationSize::all();
-        return view('product.attach-variation')->with(compact('product', 'sizes'));
+        return view('product.attach-variation')->with(compact('product', 'sizes', 'variation'));
     }
 
     /**

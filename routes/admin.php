@@ -73,8 +73,8 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
         Route::get('attach-variations/{product}', [\App\Http\Controllers\ProductController::class, 'attachVariations'])->name('products.variations.attach');
         Route::post('store-variations/{product}', [\App\Http\Controllers\ProductController::class, 'storeVariations'])->name('products.variations.store');
         Route::get('variations/{product}', [\App\Http\Controllers\ProductController::class, 'productVariations'])->name('products.variations.list');
-        Route::get('attach-variations-sizes/{product}', [\App\Http\Controllers\ProductController::class, 'attachVariationSizes'])->name('products.variations.sizes.attach');
-        Route::post('store-variations-sizes/{product}', [\App\Http\Controllers\ProductController::class, 'storeVariationsSizes'])->name('products.variations.sizes.store');
+        Route::get('attach-variations-sizes/{product}/{variation}', [\App\Http\Controllers\ProductController::class, 'attachVariationSizes'])->name('products.variations.sizes.attach');
+        Route::post('store-variations-sizes/{product}/{variation}', [\App\Http\Controllers\ProductController::class, 'storeVariationsSizes'])->name('products.variations.sizes.store');
     });
 
 });

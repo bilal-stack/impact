@@ -88,7 +88,7 @@
                                         <td class="hidden-sm hidden-xs hidden-md">{{$variation->created_at}}</td>
                                         <td class="hidden-sm hidden-xs hidden-md">{{$variation->updated_at}}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary btn-block" href="#" data-toggle="tooltip" title="Attach Sizes">
+                                            <a class="btn btn-sm btn-primary btn-block" href="{{route('admin.products.variations.sizes.attach', [$product->slug, $variation->id])}}" data-toggle="tooltip" title="Attach Sizes">
                                                 Attach Sizes
                                             </a>
                                         </td>
@@ -100,7 +100,7 @@
                                         <td>
                                             {!! Form::open(array('url' => 'products/' . $variation->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
-                                            {!! Form::button("Delete", array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Products', 'data-message' => 'Are you sure you want to delete this product ?')) !!}
+                                            {!! Form::button("Delete", array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Variation', 'data-message' => 'Are you sure you want to delete this variation ?')) !!}
                                             {!! Form::close() !!}
                                         </td>
                                         <td>
