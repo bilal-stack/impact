@@ -16,7 +16,7 @@ class SizeController extends Controller
      */
     public function index()
     {
-        $variations = VariationSize::paginate(15);
+        $variations = VariationSize::paginate(1000);
         return view('variations.sizes.list')->with(compact('variations'));
     }
 

@@ -31,7 +31,7 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
     Route::get('routes', 'AdminDetailsController@listRoutes');
     Route::get('active-users', 'AdminDetailsController@activeUsers');
 
-    Route::name('admin.')->prefix('categories')->group(function () {
+    Route::name('admin.')->prefix('admin/categories')->group(function () {
         Route::get('index', [\App\Http\Controllers\CategoryController::class, 'index'])->name('categories.list');
         Route::get('create', [\App\Http\Controllers\CategoryController::class, 'create'])->name('categories.create');
         Route::post('store', [\App\Http\Controllers\CategoryController::class, 'store'])->name('categories.store');
@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
 
     });
 
-    Route::name('admin.')->prefix('variations')->group(function () {
+    Route::name('admin.')->prefix('admin/variations')->group(function () {
         Route::get('create', [\App\Http\Controllers\Variations\VariationsController::class, 'create'])->name('variations.create');
         Route::post('store', [\App\Http\Controllers\Variations\VariationsController::class, 'store'])->name('variations.store');
         Route::get('index', [\App\Http\Controllers\Variations\VariationsController::class, 'index'])->name('variations.list');
@@ -64,10 +64,17 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
         });
     });
 
-    Route::name('admin.')->prefix('products')->group(function () {
+    Route::name('admin.')->prefix('admin/products')->group(function () {
         Route::get('index', [\App\Http\Controllers\ProductController::class, 'index'])->name('products.list');
         Route::get('create', [\App\Http\Controllers\ProductController::class, 'create'])->name('products.create');
         Route::post('store', [\App\Http\Controllers\ProductController::class, 'store'])->name('products.store');
+
+//        Variations
+        Route::get('attach-variations/{product}', [\App\Http\Controllers\ProductController::class, 'attachVariations'])->name('products.variations.attach');
+        Route::post('store-variations/{product}', [\App\Http\Controllers\ProductController::class, 'storeVariations'])->name('products.variations.store');
+        Route::get('variations/{product}', [\App\Http\Controllers\ProductController::class, 'productVariations'])->name('products.variations.list');
+        Route::get('attach-variations-sizes/{product}', [\App\Http\Controllers\ProductController::class, 'attachVariationSizes'])->name('products.variations.sizes.attach');
+        Route::post('store-variations-sizes/{product}', [\App\Http\Controllers\ProductController::class, 'storeVariationsSizes'])->name('products.variations.sizes.store');
     });
 
 });

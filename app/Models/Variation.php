@@ -27,4 +27,9 @@ class Variation extends Model
         'image'
     ];
 
+    public function product()
+    {
+        return $this->belongsToMany(Product::class, 'product_variations');
+    }
+
 }

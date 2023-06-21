@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-   Products
+    Product Variations - {{$product->title}}
 @endsection
 
 @section('template_linked_css')
@@ -35,7 +35,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                               Showing All Products
+                               Showing All Product <b>({{$product->title}})</b> Variations
                             </span>
 
                             <div class="btn-group pull-right btn-group-xs">
@@ -46,7 +46,7 @@
                                     </span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="/products/create">
+                                    <a class="dropdown-item" href="{{route('admin.products.variations.attach', $product->slug)}}">
                                         <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
                                         Create New
                                     </a>
@@ -63,9 +63,9 @@
 
                         <div class="table-responsive users-table">
                             <table class="table table-striped table-sm data-table">
-                                    <caption id="user_count">
-                                        {{$products->count()}} products
-                                    </caption>
+                                <caption id="user_count">
+                                    {{$variations->count()}} variations
+                                </caption>
                                 <thead class="thead">
                                 <tr>
                                     <th>$</th>
@@ -73,7 +73,6 @@
                                     <th>Description</th>
                                     <th class="hidden-sm hidden-xs hidden-md">{!! trans('usersmanagement.users-table.created') !!}</th>
                                     <th class="hidden-sm hidden-xs hidden-md">{!! trans('usersmanagement.users-table.updated') !!}</th>
-                                    <th>Status</th>
                                     <th>{!! trans('usersmanagement.users-table.actions') !!}</th>
                                     <th class="no-search no-sort"></th>
                                     <th class="no-search no-sort"></th>
@@ -81,39 +80,32 @@
                                 </thead>
                                 <tbody id="users_table">
                                 @php($i = 1)
-                                @foreach($products as $product)
+                                @foreach($variations as $variation)
                                     <tr>
                                         <td>{{$i}}</td>
-                                        <td>{{$product->title}}</td>
-                                        <td>{!! $product->description !!}</td>
-                                        <td class="hidden-sm hidden-xs hidden-md">{{$product->created_at}}</td>
-                                        <td class="hidden-sm hidden-xs hidden-md">{{$product->updated_at}}</td>
+                                        <td>{{$variation->title}}</td>
+                                        <td>{!! substr($variation->description, 0, 110) !!}</td>
+                                        <td class="hidden-sm hidden-xs hidden-md">{{$variation->created_at}}</td>
+                                        <td class="hidden-sm hidden-xs hidden-md">{{$variation->updated_at}}</td>
                                         <td>
-                                            @if($product->active == 0)
-                                                <label class="badge badge-danger">Inactive</label>
-                                                @elseif($product->active == 1)
-                                                <label class="badge badge-success">Active</label>
-                                            @endif
+                                            <a class="btn btn-sm btn-primary btn-block" href="#" data-toggle="tooltip" title="Attach Sizes">
+                                                Attach Sizes
+                                            </a>
                                         </td>
                                         <td>
-                                            {!! Form::open(array('url' => 'products/' . $product->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                                            <a class="btn btn-sm btn-success btn-block" href="#" data-toggle="tooltip" title="Attach Sizes">
+                                                Attach Styles
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {!! Form::open(array('url' => 'products/' . $variation->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
                                             {!! Form::button("Delete", array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Products', 'data-message' => 'Are you sure you want to delete this product ?')) !!}
                                             {!! Form::close() !!}
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-success btn-block" href="{{ URL::to('products/' . $product->id) }}" data-toggle="tooltip" title="Show">
-                                                View
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('products/' . $product->id . '/edit') }}" data-toggle="tooltip" title="Edit">
+                                            <a class="btn btn-sm btn-info btn-block" href="#" data-toggle="tooltip" title="Edit">
                                                 Edit
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm btn-primary btn-block" href="{{ route('admin.products.variations.list', $product->slug) }}" data-toggle="tooltip" title="View Variatons">
-                                                View Variations
                                             </a>
                                         </td>
                                     </tr>
@@ -121,9 +113,8 @@
                                 @endforeach
                                 </tbody>
                             </table>
-
                             @if(config('usersmanagement.enablePagination'))
-                                {{ $products->links() }}
+                                {{ $variations->links() }}
                             @endif
 
                         </div>
@@ -138,7 +129,7 @@
 @endsection
 
 @section('footer_scripts')
-    @if ((count($products) > config('usersmanagement.datatablesJsStartCount')) && config('usersmanagement.enabledDatatablesJs'))
+    @if ((count($variations) > config('usersmanagement.datatablesJsStartCount')) && config('usersmanagement.enabledDatatablesJs'))
         @include('scripts.datatables')
     @endif
     @include('scripts.delete-modal-script')

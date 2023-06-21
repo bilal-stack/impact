@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Variation;
+use App\Models\VariationSize;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::active()->paginate(2);
-        //dd($products);
+        $products = Product::paginate(15);
         return view('product.list')->with(compact('products'));
     }
 
@@ -41,28 +42,105 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'        => ['required', 'string', 'max:255'],
-            'tagline'      => ['nullable', 'string', 'max:255'],
-            'description'  => ['nullable', 'string', 'max:5000'],
-            'document'     => ['required', 'max:5000']
+            'title'             => ['required', 'string', 'max:255'],
+            'category'          => ['required', 'string', 'exists:categories,id'],
+            'sub_category'      => ['nullable', 'string', 'exists:sub_categories,id'],
+            'tagline'           => ['nullable', 'string', 'max:255'],
+            'description'       => ['nullable', 'string', 'max:5000'],
+            'document'          => ['required', 'max:5000']
         ]);
 
         $product = Product::create([
-            'title'       => $request->title,
-            'tagline'     => $request->tagline,
-            'description' => $request->description,
-            'active'      => 0
+            'title'             => $request->title,
+            'tagline'           => $request->tagline,
+            'description'       => $request->description,
+            'category_id'       => $request->category,
+            'sub_category_id'   => $request->sub_category,
+            'active'            => 0
         ]);
 
         if ($request->has('document')) {
             $product->addMedia(storage_path('tmp/uploads/' . Auth::id() . '/' . $request->document))->toMediaCollection('product-images', 'product-images');
         }
 
-        if ($request->has('sub_categories')) {
-            $product->subCategories()->attach($request->sub_categories);
-        }
-
         deleteTempFolder('tmp/uploads/' . Auth::id());
+
+        return redirect()->route('admin.products.variations.attach', $product->slug)->with('success', 'Successfully created');
+    }
+
+    /**
+     * Attach product variations.
+     *
+     * @param  Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function attachVariations(Product $product)
+    {
+        $product->load('variations');
+
+        $variations = Variation::whereDoesntHave('product', function ($query) use ($product) {
+            $query->where('product_id', $product->id);
+        })->get();
+
+        return view('product.variations.attach-variation')->with(compact('product', 'variations'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function storeVariations(Request $request, Product $product)
+    {
+        $request->validate([
+            'variations'  => ['required', 'array']
+        ]);
+
+        $product->variations()->attach($request->variations);
+
+        return redirect()->route('admin.products.products.variations.list', $product->slug)->with('success', 'Successfully created');
+    }
+
+    /**
+     * Display a listing of the variations.
+     *
+     * @param Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function productVariations(Product $product)
+    {
+        $variations = $product->variations()->paginate(15);
+        return view('product.variations.list')->with(compact('product', 'variations'));
+    }
+
+    /**
+     * Attach product variation Sizes.
+     *
+     * @param  Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function attachVariationSizes(Product $product)
+    {
+        $sizes = VariationSize::all();
+        return view('product.attach-variation')->with(compact('product', 'sizes'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function storeVariationsSizes(Request $request, Product $product)
+    {
+        $request->validate([
+            'variation_sizes'  => ['required', 'array']
+        ]);
+
+        $product->variationSizes()->attach($request->variation_sizes);
 
         return redirect()->route('admin.products.list')->with('success', 'Successfully created');
     }

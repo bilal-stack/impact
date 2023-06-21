@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Create Prodcut
+    Create Product
 @endsection
 @section('template_linked_css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.css" integrity="sha512-WvVX1YO12zmsvTpUQV8s7ZU98DnkaAokcciMZJfnNWyNzm7//QRV61t4aEr0WdIa4pe854QHLTV302vH92FSMw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -89,11 +89,30 @@
                             </div>
                         </div>
 
+                        <div class="form-group has-feedback row {{ $errors->has('specifications') ? ' has-error ' : '' }}">
+                            {!! Form::label('specifications', 'Specifications', array('class' => 'col-md-3 control-label')); !!}
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <textarea class="form-control {{ $errors->has('specifications') ? ' has-error ' : '' }}" name="specifications" id="specifications">{{old('specifications')}}</textarea>
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="name">
+                                            <i class="fa fa-fw fa-sort-alpha-desc" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                @if ($errors->has('specifications'))
+                                    <span class="help-block">
+                                            <strong>{{ $errors->first('specifications') }}</strong>
+                                        </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group has-feedback row {{ $errors->has('category') ? ' has-error ' : '' }}">
                             <label for="exampleFormControlSelect1" class="col-md-3 control-label">Category</label>
                             <div class="col-md-9">
                                 <div class="input-group">
-                                    <select class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}" id="category-select" name="category">
+                                    <select class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}" id="category-select" name="category" required>
                                         <option value="">Choose</option>
                                         @foreach($categories as $category)
                                             <option @if(old('category') == $category->id) selected @endif value="{{$category->id}}" data-slug="{{$category->slug}}">{{$category->title}}</option>
