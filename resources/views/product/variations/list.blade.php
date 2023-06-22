@@ -48,7 +48,7 @@
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="{{route('admin.products.variations.attach', $product->slug)}}">
                                         <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
-                                        Create New
+                                        Attach New
                                     </a>
                                     <a class="dropdown-item" href="/products/deleted">
                                         <i class="fa fa-fw fa-group" aria-hidden="true"></i>

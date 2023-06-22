@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductVariations;
 use App\Models\Variation;
 use App\Models\VariationSize;
 use Illuminate\Http\Request;
@@ -36,27 +37,27 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
-            'title'             => ['required', 'string', 'max:255'],
-            'category'          => ['required', 'string', 'exists:categories,id'],
-            'sub_category'      => ['nullable', 'string', 'exists:sub_categories,id'],
-            'tagline'           => ['nullable', 'string', 'max:255'],
-            'description'       => ['nullable', 'string', 'max:5000'],
-            'document'          => ['required', 'max:5000']
+            'title' => ['required', 'string', 'max:255'],
+            'category' => ['required', 'string', 'exists:categories,id'],
+            'sub_category' => ['nullable', 'string', 'exists:sub_categories,id'],
+            'tagline' => ['nullable', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:5000'],
+            'document' => ['required', 'max:5000']
         ]);
 
         $product = Product::create([
-            'title'             => $request->title,
-            'tagline'           => $request->tagline,
-            'description'       => $request->description,
-            'category_id'       => $request->category,
-            'sub_category_id'   => $request->sub_category,
-            'active'            => 0
+            'title' => $request->title,
+            'tagline' => $request->tagline,
+            'description' => $request->description,
+            'category_id' => $request->category,
+            'sub_category_id' => $request->sub_category,
+            'active' => 0
         ]);
 
         if ($request->has('document')) {
@@ -88,19 +89,19 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param Product $product
      * @return \Illuminate\Http\Response
      */
     public function storeVariations(Request $request, Product $product)
     {
         $request->validate([
-            'variations'  => ['required', 'array']
+            'variations' => ['required', 'array']
         ]);
 
-        $product->variations()->attach($request->variations);
+        $product->variations()->sync($request->variations);
 
-        return redirect()->route('admin.products.products.variations.list', $product->slug)->with('success', 'Successfully created');
+        return redirect()->route('admin.products.variations.list', $product->slug)->with('success', 'Successfully created');
     }
 
     /**
@@ -124,34 +125,53 @@ class ProductController extends Controller
      */
     public function attachVariationSizes(Product $product, Variation $variation)
     {
-        dd($product,$variation);
-
-        $sizes = VariationSize::all();
-        return view('product.attach-variation')->with(compact('product', 'sizes', 'variation'));
+        return view('product.variations.attach-variation-sizes')->with(compact('product', 'variation'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @param Product $product
+     * @param Variation $variation
      * @return \Illuminate\Http\Response
      */
-    public function storeVariationsSizes(Request $request, Product $product)
+    public function storeVariationsSizes(Request $request, Product $product, Variation $variation)
     {
         $request->validate([
-            'variation_sizes'  => ['required', 'array']
+            'sizes' => ['required', 'array']
         ]);
 
-        $product->variationSizes()->attach($request->variation_sizes);
+        ProductVariations::where([
+            ['product_id', $product->id],
+            ['variation_id', $variation->id],
+            ['variation_size_id', null]
+        ])->delete();
 
-        return redirect()->route('admin.products.list')->with('success', 'Successfully created');
+        foreach ($request->sizes as $size) {
+
+            $exists = ProductVariations::where([
+                ['product_id', $product->id],
+                ['variation_id', $variation->id],
+                ['variation_size_id', $size]
+            ])->exists();
+
+            if (!$exists) {
+                ProductVariations::create([
+                    'product_id' => $product->id,
+                    'variation_id' => $variation->id,
+                    'variation_size_id' => $size
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.products.variations.list', $product->slug)->with('success', 'Successfully attached');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -162,7 +182,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -173,8 +193,8 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -185,7 +205,7 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Settings;
 use App\Models\SubCategory;
 use App\Models\SubSubCategory;
+use App\Models\Variation;
+use App\Models\VariationSize;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -328,6 +330,26 @@ class AjaxController extends Controller
             [
                 'success' => true,
                 'data' => null
+            ]);
+
+    }
+
+    /**
+     * Remove Temporary Product Media
+     *
+     * @throws
+     * @param Request $request
+     * @param $variation
+     * @return JsonResponse
+     */
+    public function getVariationSizes(Request $request)
+    {
+        $sizes = VariationSize::where('title', $request->term)->get(['id', 'title as text']);
+
+        return Response::json(
+            [
+                'success' => true,
+                'data' => $sizes->toArray()
             ]);
 
     }
