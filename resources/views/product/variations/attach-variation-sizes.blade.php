@@ -33,31 +33,134 @@
 
                         {!! csrf_field() !!}
 
-                        <div class="form-group has-feedback row {{ $errors->has('sizes.*') ? ' has-error ' : '' }}">
-                            <label for="exampleFormControlSelect1" class="col-md-3 control-label">Sizes </label>
+                            <div class="form-group has-feedback row {{ $errors->has('size') ? ' has-error ' : '' }}">
+                                <label for="exampleFormControlSelect1" class="col-md-3 control-label">Sizes </label>
+
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <select id="size" name="size" class="form-control sizes"></select>
+
+                                        <div class="input-group-append">
+                                            <label for="email" class="input-group-text">
+                                                <i class="fa fa-fw fa-edit" aria-hidden="true"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if ($errors->has('size'))
+                                    <span class="help-block">
+                                    <strong>{{ $errors->first('size') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+
+                        <div class="form-group has-feedback row {{ $errors->has('title') ? ' has-error ' : '' }}">
+                            <label for="exampleFormControlSelect1" class="col-md-3 control-label">Title:
+                            <small>Search for already created style or create new</small>
+                            </label>
 
                             <div class="col-md-9">
                                 <div class="input-group">
-                                    <select id="sizes" name="sizes[]" multiple class="form-control js-data-example-ajax"></select>
+                                    <input id="title_id" name="title_id" class="form-control title_id" placeholder="Style Title">
 
                                     <div class="input-group-append">
                                         <label for="email" class="input-group-text">
-                                            <i class="fa fa-fw fa-edit" aria-hidden="true"></i>
+                                            <i class="fa fa-fw fa-file-text-o" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="input-group mt-2">
+                                    <input id="title" name="title" class="form-control title" placeholder="Style Title">
+                                    <div class="input-group-append">
+                                        <label for="email" class="input-group-text">
+                                            <i class="fa fa-fw fa-file-text-o" aria-hidden="true"></i>
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            @if ($errors->has('sizes.*'))
+                            @if ($errors->has('title'))
                                 <span class="help-block">
-                                 @foreach($errors->get('sizes.*') as $errrs)
-                                        @foreach($errrs as $error)
-                                            <strong>{{ $error }}</strong><br>
-                                        @endforeach
-                                    @endforeach
-                            </span>
+                                    <strong>{{ $errors->first('title') }}</strong>
+                                </span>
                             @endif
                         </div>
 
+                        <div class="form-group has-feedback row {{ $errors->has('description') ? ' has-error ' : '' }}">
+                            {!! Form::label('description', 'Description', array('class' => 'col-md-3 control-label')); !!}
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <textarea class="form-control {{ $errors->has('description') ? ' has-error ' : '' }}" name="description" id="description">{{old('description')}}</textarea>
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="name">
+                                            <i class="fa fa-fw fa-sort-alpha-desc" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                @if ($errors->has('description'))
+                                    <span class="help-block">
+                                            <strong>{{ $errors->first('description') }}</strong>
+                                        </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback row {{ $errors->has('option_image') ? ' has-error ' : '' }}">
+                            {!! Form::label('option_image', 'Option Image', array('class' => 'col-md-3 control-label')); !!}
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <input type="file" name="option_image" id="option_image" class="form-control {{ $errors->has('option_image') ? ' has-error ' : '' }}">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="option_image">
+                                            <i class="fa fa-fw fa-file" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                @if ($errors->has('option_image'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('option_image') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback row {{ $errors->has('product_image') ? ' has-error ' : '' }}">
+                            {!! Form::label('product_image', 'Product Image', array('class' => 'col-md-3 control-label')); !!}
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <input type="file" name="product_image" id="product_image" class="form-control {{ $errors->has('product_image') ? ' has-error ' : '' }}">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="product_image">
+                                            <i class="fa fa-fw fa-file" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                @if ($errors->has('product_image'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('product_image') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group has-feedback row {{ $errors->has('price') ? ' has-error ' : '' }}">
+                            {!! Form::label('price', 'Price', array('class' => 'col-md-3 control-label')); !!}
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <input type="number" name="price" id="price" class="form-control {{ $errors->has('price') ? ' has-error ' : '' }}" value="{{old('price')}}">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="price">
+                                            <i class="fa fa-fw fa-dollar" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                @if ($errors->has('price'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('price') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         {!! Form::button('Attach', array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','type' => 'submit' )) !!}
                         {!! Form::close() !!}
@@ -72,9 +175,11 @@
 
 @section('footer_scripts')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>tinymce.init({selector:'textarea'});</script>
 
     <script>
-        $('#sizes').select2({
+        $('#size').select2({
             ajax: {
                 url: '{{route('ajax.get.variation.sizes')}}',
                 processResults: function (data) {
@@ -85,6 +190,19 @@
                 }
             },
             placeholder: 'Search for a size',
+        });
+
+        $('#title_id').select2({
+            ajax: {
+                url: '{{route('ajax.get.variations')}}',
+                processResults: function (data) {
+                    // Transforms the top-level key of the response object from 'items' to 'results'
+                    return {
+                        results: data.data
+                    };
+                }
+            },
+            placeholder: 'Search for a style title',
         });
     </script>
 @endsection

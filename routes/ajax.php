@@ -15,13 +15,14 @@ Route::prefix('ajax')->name('ajax.')->group(function () {
     //Variations related routes
     Route::post('var-media-store/', [\App\Http\Controllers\Ajax\AjaxController::class, 'storeVariationMedia'])->name('variation.media.store');
     Route::post('var-media-remove/', [\App\Http\Controllers\Ajax\AjaxController::class, 'removeVariationMedia'])->name('variation.media.remove');
+    Route::get('get-variations', [\App\Http\Controllers\Ajax\AjaxController::class, 'getVariations'])->name('get.variations');
 
     //Product media related routes
     Route::post('product-media-store/', [\App\Http\Controllers\Ajax\AjaxController::class, 'storeProductMedia'])->name('product.media.store');
     Route::post('product-media-remove/', [\App\Http\Controllers\Ajax\AjaxController::class, 'removeTmpProductMedia'])->name('product.media.remove');
 
     //Variations Sizes related routes
-    Route::get('get-sizes/{id?}', [\App\Http\Controllers\Ajax\AjaxController::class, 'getVariationSizes'])->name('get.variation.sizes');
+    Route::get('get-sizes', [\App\Http\Controllers\Ajax\AjaxController::class, 'getVariationSizes'])->name('get.variation.sizes');
 
     // users settings
     Route::prefix('setting')->name('settings.')->group(function () {

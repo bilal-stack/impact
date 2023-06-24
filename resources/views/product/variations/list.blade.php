@@ -88,13 +88,8 @@
                                         <td class="hidden-sm hidden-xs hidden-md">{{$variation->created_at}}</td>
                                         <td class="hidden-sm hidden-xs hidden-md">{{$variation->updated_at}}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary btn-block" href="{{route('admin.products.variations.sizes.attach', [$product->slug, $variation->id])}}" data-toggle="tooltip" title="Attach Sizes">
-                                                Attach Sizes
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm btn-success btn-block" href="#" data-toggle="tooltip" title="Attach Sizes">
-                                                Attach Styles
+                                            <a class="btn btn-sm btn-success btn-block" href="{{route('admin.products.variations.sizes.attach', [$product->slug, $variation->id])}}" data-toggle="tooltip" title="Attach Sizes">
+                                                Attach Size with style
                                             </a>
                                         </td>
                                         <td>

@@ -335,7 +335,26 @@ class AjaxController extends Controller
     }
 
     /**
-     * Remove Temporary Product Media
+     * Get Variation
+     *
+     * @throws
+     * @param Request $request
+     * @param $variation
+     * @return JsonResponse
+     */
+    public function getVariations(Request $request)
+    {
+        $variations = Variation::where('title', $request->term)->get(['id', 'title as text']);
+
+        return Response::json(
+            [
+                'success' => true,
+                'data' => $variations->toArray()
+            ]);
+    }
+
+    /**
+     * Get Variation Sizes
      *
      * @throws
      * @param Request $request
