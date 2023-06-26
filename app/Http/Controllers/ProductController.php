@@ -200,6 +200,8 @@ class ProductController extends Controller
             ]);
         }
 
+        $product->update(['active' => 1]);
+
         return redirect()->route('admin.products.variations.list', $product->slug)->with('success', 'Successfully attached');
     }
 
