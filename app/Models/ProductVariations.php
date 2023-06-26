@@ -22,6 +22,14 @@ class ProductVariations extends Model
         'product_id',
         'variation_id',
         'variation_size_id',
-        'variation_style_id'
+        'variation_style_id',
+        'price',
+        'image',
+        'back_image'
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

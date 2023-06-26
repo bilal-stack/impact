@@ -61,7 +61,7 @@
 
                             <div class="col-md-9">
                                 <div class="input-group">
-                                    <input id="title_id" name="title_id" class="form-control title_id" placeholder="Style Title">
+                                    <select id="title_id" name="title_id" class="form-control title_id"></select>
 
                                     <div class="input-group-append">
                                         <label for="email" class="input-group-text">
@@ -71,7 +71,7 @@
                                 </div>
 
                                 <div class="input-group mt-2">
-                                    <input id="title" name="title" class="form-control title" placeholder="Style Title">
+                                    <input id="title" name="title" class="form-control title" placeholder="Style Title (create new)" value="{{old('title')}}">
                                     <div class="input-group-append">
                                         <label for="email" class="input-group-text">
                                             <i class="fa fa-fw fa-file-text-o" aria-hidden="true"></i>
@@ -109,7 +109,7 @@
                             {!! Form::label('option_image', 'Option Image', array('class' => 'col-md-3 control-label')); !!}
                             <div class="col-md-9">
                                 <div class="input-group">
-                                    <input type="file" name="option_image" id="option_image" class="form-control {{ $errors->has('option_image') ? ' has-error ' : '' }}">
+                                    <input type="file" name="option_image" id="option_image" class="form-control {{ $errors->has('option_image') ? ' has-error ' : '' }}" accept="image/png, image/gif, image/jpeg">
                                     <div class="input-group-append">
                                         <label class="input-group-text" for="option_image">
                                             <i class="fa fa-fw fa-file" aria-hidden="true"></i>
@@ -124,11 +124,26 @@
                             </div>
                         </div>
 
+                        <hr>
+                        <div class="form-group has-feedback row {{ $errors->has('old_image') ? ' has-error ' : '' }}">
+                            {!! Form::label('old_image', 'Is Product image same?', array('class' => 'col-md-3 control-label')); !!}
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="checkbox" name="old_image" id="old_image" class="form-control {{ $errors->has('product_image') ? ' has-error ' : '' }}" accept="image/png, image/gif, image/jpeg">
+                                </div>
+                                @if ($errors->has('old_image'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('old_image') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group has-feedback row {{ $errors->has('product_image') ? ' has-error ' : '' }}">
                             {!! Form::label('product_image', 'Product Image', array('class' => 'col-md-3 control-label')); !!}
                             <div class="col-md-9">
                                 <div class="input-group">
-                                    <input type="file" name="product_image" id="product_image" class="form-control {{ $errors->has('product_image') ? ' has-error ' : '' }}">
+                                    <input type="file" name="product_image" id="product_image" class="form-control {{ $errors->has('product_image') ? ' has-error ' : '' }}" accept="image/png, image/gif, image/jpeg">
                                     <div class="input-group-append">
                                         <label class="input-group-text" for="product_image">
                                             <i class="fa fa-fw fa-file" aria-hidden="true"></i>
@@ -138,6 +153,25 @@
                                 @if ($errors->has('product_image'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('product_image') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group has-feedback row {{ $errors->has('back_image') ? ' has-error ' : '' }}">
+                            {!! Form::label('back_image', 'Product Back Image', array('class' => 'col-md-3 control-label')); !!}
+                            <div class="col-md-9">
+                                <div class="input-group">
+                                    <input type="file" name="back_image" id="back_image" class="form-control {{ $errors->has('back_image') ? ' has-error ' : '' }}" accept="image/png, image/gif, image/jpeg">
+                                    <div class="input-group-append">
+                                        <label class="input-group-text" for="product_image">
+                                            <i class="fa fa-fw fa-file" aria-hidden="true"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                @if ($errors->has('back_image'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('back_image') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -194,7 +228,7 @@
 
         $('#title_id').select2({
             ajax: {
-                url: '{{route('ajax.get.variations')}}',
+                url: '{{route('ajax.get.variations.style')}}',
                 processResults: function (data) {
                     // Transforms the top-level key of the response object from 'items' to 'results'
                     return {

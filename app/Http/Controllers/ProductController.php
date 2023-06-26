@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductVariations;
 use App\Models\Variation;
 use App\Models\VariationSize;
+use App\Models\VariationStyle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -139,33 +140,82 @@ class ProductController extends Controller
     public function storeVariationsSizes(Request $request, Product $product, Variation $variation)
     {
         $request->validate([
-            'sizes' => ['required', 'array']
+            'size'          => ['required', 'string', 'exists:variation_sizes,id'],
+            'title'         => ['required_without:title_id'],
+            'title_id'      => ['nullable','required_without:title', 'exists:variation_styles,id'],
+            'description'   => ['nullable', 'string', 'max:9000'],
+            'price'         => ['required', 'numeric', 'gt:0'],
+            'option_image'  => ['required_without:title_id', 'image', 'mimes:jpeg,png,jpg,gif', 'max:1028'],
+            'old_image'     => ['nullable'],
+            'product_image' => ['required_without:old_image', 'image', 'mimes:jpeg,png,jpg,gif', 'max:1028'],
+            'back_image'    => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:1028'],
+        ],
+        [
+            'title_id.required' => 'You need to select existing style or enter style title',
         ]);
+
+        if (null != $request->title) {
+            $style = $this->createStyle($request);
+        } else {
+            $style = $request->title_id;
+        }
 
         ProductVariations::where([
             ['product_id', $product->id],
             ['variation_id', $variation->id],
-            ['variation_size_id', null]
+            ['variation_size_id', null],
+            ['variation_style_id', null]
         ])->delete();
 
-        foreach ($request->sizes as $size) {
+        $exists = ProductVariations::where([
+            ['product_id', $product->id],
+            ['variation_id', $variation->id],
+            ['variation_size_id', $request->size],
+            ['variation_style_id', $style]
+        ])->exists();
 
-            $exists = ProductVariations::where([
-                ['product_id', $product->id],
-                ['variation_id', $variation->id],
-                ['variation_size_id', $size]
-            ])->exists();
+        if (!$exists) {
 
-            if (!$exists) {
-                ProductVariations::create([
-                    'product_id' => $product->id,
-                    'variation_id' => $variation->id,
-                    'variation_size_id' => $size
-                ]);
+            if ($request->has('old_image')) {
+                $imageName = $product->getFirstMediaUrl('product-images');
+            } else {
+                $imageName = str_slug($product->title) . '-' .time() . '.' . $request->product_image->extension();
+                $request->product_image->move(storage_path('app/public/product-style-images'), $imageName);
             }
+
+            $backImageName = null;
+            if ($request->has('back_image')) {
+                $backImageName = str_slug($product->title) . '-' . time() . '.3d-' . $request->back_image->extension();
+                $request->back_image->move(storage_path('app/public/product-style-images'), $imageName);
+            }
+
+            ProductVariations::create([
+                'product_id'            => $product->id,
+                'variation_id'          => $variation->id,
+                'variation_size_id'     => $request->size,
+                'variation_style_id'    => $style,
+                'price'                 => $request->price,
+                'image'                 => $imageName,
+                'back_image'            => $backImageName
+            ]);
         }
 
         return redirect()->route('admin.products.variations.list', $product->slug)->with('success', 'Successfully attached');
+    }
+
+    private function createStyle($request)
+    {
+        $imageName = str_slug($request->title) . '-' .time() . '.' . $request->option_image->extension();
+        $request->option_image->move(storage_path('app/public/variation-style-option-images'), $imageName);
+
+        $style =  VariationStyle::firstOrCreate([
+            'title'         => $request->title,
+        ], [
+            'description'   => $request->description,
+            'option_image'  => $imageName
+        ]);
+
+        return $style->id;
     }
 
     /**

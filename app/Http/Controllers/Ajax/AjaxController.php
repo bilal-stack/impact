@@ -9,6 +9,7 @@ use App\Models\SubCategory;
 use App\Models\SubSubCategory;
 use App\Models\Variation;
 use App\Models\VariationSize;
+use App\Models\VariationStyle;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -369,6 +370,26 @@ class AjaxController extends Controller
             [
                 'success' => true,
                 'data' => $sizes->toArray()
+            ]);
+
+    }
+
+    /**
+     * Get Variation Sizes
+     *
+     * @throws
+     * @param Request $request
+     * @param $variation
+     * @return JsonResponse
+     */
+    public function getVariationStyles(Request $request)
+    {
+        $styles = VariationStyle::where('title', 'LIKE','%' . $request->term . '%')->limit(10)->get(['id', 'title as text']);
+
+        return Response::json(
+            [
+                'success' => true,
+                'data' => $styles->toArray()
             ]);
 
     }

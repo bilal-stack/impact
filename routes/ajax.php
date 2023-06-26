@@ -24,6 +24,9 @@ Route::prefix('ajax')->name('ajax.')->group(function () {
     //Variations Sizes related routes
     Route::get('get-sizes', [\App\Http\Controllers\Ajax\AjaxController::class, 'getVariationSizes'])->name('get.variation.sizes');
 
+    //Variation Styles
+    Route::get('get-variations-styles', [\App\Http\Controllers\Ajax\AjaxController::class, 'getVariationStyles'])->name('get.variations.style');
+
     // users settings
     Route::prefix('setting')->name('settings.')->group(function () {
         Route::post('update', [\App\Http\Controllers\Ajax\AjaxController::class, 'updateSettings'])->name('update');
