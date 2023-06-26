@@ -46,11 +46,11 @@
                                     </span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="/products/create">
+                                    <a class="dropdown-item" href="{{url('products/create')}}">
                                         <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
                                         Create New
                                     </a>
-                                    <a class="dropdown-item" href="/products/deleted">
+                                    <a class="dropdown-item" href="{{url('products/deleted')}}">
                                         <i class="fa fa-fw fa-group" aria-hidden="true"></i>
                                         Deleted Products
                                     </a>
