@@ -32,4 +32,14 @@ class ProductVariations extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function size()
+    {
+        return $this->belongsTo(VariationSize::class, 'variation_size_id');
+    }
+
+    public function style()
+    {
+        return $this->belongsTo(VariationStyle::class, 'variation_style_id');
+    }
 }

@@ -124,9 +124,25 @@ class ProductController extends Controller
      * @param  Variation $variation
      * @return \Illuminate\Http\Response
      */
+    public function showProductVariationSizesStyles(Product $product, Variation $variation)
+    {
+       $childVariations = ProductVariations::where([['product_id', $product->id], ['variation_id', $variation->id]])->with('style', 'size')->paginate(15);
+
+        //dd($childVariations);
+
+        return view('product.variations.sizes-styles.list')->with(compact('product', 'variation', 'childVariations'));
+    }
+
+    /**
+     * Attach product variation Sizes.
+     *
+     * @param  Product $product
+     * @param  Variation $variation
+     * @return \Illuminate\Http\Response
+     */
     public function attachVariationSizes(Product $product, Variation $variation)
     {
-        return view('product.variations.attach-variation-sizes')->with(compact('product', 'variation'));
+        return view('product.variations.sizes-styles.attach')->with(compact('product', 'variation'));
     }
 
     /**

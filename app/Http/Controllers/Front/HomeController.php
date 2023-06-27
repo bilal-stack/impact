@@ -29,7 +29,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the contact Us.
+     * Show the contact us.
      *
      * @return \Illuminate\Http\Response
      */

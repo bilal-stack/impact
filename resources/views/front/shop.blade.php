@@ -21,11 +21,11 @@
                 @foreach($categories as $category)
                 <div class="col-4 mt-4 mb-4">
                     <div class="catigory-flora-inner">
-                        <a href="#">
+                        <a href="{{route('shop.category.product', $category->slug)}}">
                             <img width="50%" src="{{$category->getFirstMediaUrl('category-images')}}"/>
                         </a>
                         <div class="prduct-price-list">
-                            <h3><a class="text-decoration-none text-black-50" href="#">{{$category->title}}</a></h3>
+                            <h3><a class="text-decoration-none text-black-50" href="{{route('shop.category.product', $category->slug)}}">{{$category->title}}</a></h3>
                         </div>
                     </div>
                 </div>

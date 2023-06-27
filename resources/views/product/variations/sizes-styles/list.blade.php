@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('template_title')
-   Products
+    Product-{{$product->title}} Variation - {{$variation->title}}
 @endsection
 
 @section('template_linked_css')
@@ -35,7 +35,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                               Showing All Products
+                               Showing all sizes and styles of {{$variation->title}} & Product <b>({{$product->title}})</b>
                             </span>
 
                             <div class="btn-group pull-right btn-group-xs">
@@ -46,11 +46,11 @@
                                     </span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="{{route('admin.products.create')}}">
+                                    <a class="dropdown-item" href="{{route('admin.products.variations.sizes.attach', [$product->slug, $variation->id])}}">
                                         <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
-                                        Create New
+                                        Attach New size & style
                                     </a>
-                                    <a class="dropdown-item" href="{{url('admin/products/deleted')}}">
+                                    <a class="dropdown-item" href="#">
                                         <i class="fa fa-fw fa-group" aria-hidden="true"></i>
                                         Deleted Products
                                     </a>
@@ -63,17 +63,18 @@
 
                         <div class="table-responsive users-table">
                             <table class="table table-striped table-sm data-table">
-                                    <caption id="user_count">
-                                        {{$products->count()}} products
-                                    </caption>
+                                <caption id="user_count">
+                                    {{$childVariations->count()}} sizes & styles
+                                </caption>
                                 <thead class="thead">
                                 <tr>
-                                    <th>#</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th class="hidden-sm hidden-xs hidden-md">{!! trans('usersmanagement.users-table.created') !!}</th>
-                                    <th class="hidden-sm hidden-xs hidden-md">{!! trans('usersmanagement.users-table.updated') !!}</th>
-                                    <th>Status</th>
+                                    <th>$</th>
+                                    <th>Size</th>
+                                    <th>Style</th>
+                                    <th>Price</th>
+                                    <th>Product Image</th>
+                                    <th>Option Image</th>
+                                    <th>Back Image</th>
                                     <th>{!! trans('usersmanagement.users-table.actions') !!}</th>
                                     <th class="no-search no-sort"></th>
                                     <th class="no-search no-sort"></th>
@@ -81,39 +82,43 @@
                                 </thead>
                                 <tbody id="users_table">
                                 @php($i = 1)
-                                @foreach($products as $product)
+                                @foreach($childVariations as $var)
                                     <tr>
                                         <td>{{$i}}</td>
-                                        <td>{{$product->title}}</td>
-                                        <td>{!! $product->description !!}</td>
-                                        <td class="hidden-sm hidden-xs hidden-md">{{$product->created_at}}</td>
-                                        <td class="hidden-sm hidden-xs hidden-md">{{$product->updated_at}}</td>
                                         <td>
-                                            @if($product->active == 0)
-                                                <label class="badge badge-danger">Inactive</label>
-                                                @elseif($product->active == 1)
-                                                <label class="badge badge-success">Active</label>
+                                            @if($var->size != null)
+                                                {{$var->size->title}}
+                                            @else
+                                                No style
+                                            @endif
+                                           </td>
+                                        <td>
+                                            @if($var->style != null)
+                                                {{$var->style->title}}
+                                                @else
+                                                No style
                                             @endif
                                         </td>
+                                        <td>{{$var->price}}</td>
+                                        <td><img width="25%" src="{{asset('storage/variation-option-images/'.$var->image)}}"></td>
                                         <td>
-                                            {!! Form::open(array('url' => 'products/' . $product->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                                            @if($var->style != null)
+                                                <img width="25%" src="{{asset('storage/variation-option-images/'.$var->style->option_image)}}">
+                                            @else
+                                                No style image
+                                            @endif
+
+                                        </td>
+                                        <td><img width="25%" src="{{asset('storage/variation-option-images/'.$var->back_image)}}"></td>
+                                        <td>
+                                            {!! Form::open(array('url' => 'products/' . $var->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
-                                            {!! Form::button("Delete", array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Products', 'data-message' => 'Are you sure you want to delete this product ?')) !!}
+                                            {!! Form::button("Delete", array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete Variation', 'data-message' => 'Are you sure you want to delete this variation ?')) !!}
                                             {!! Form::close() !!}
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-success btn-block" href="{{ URL::to('products/' . $product->id) }}" data-toggle="tooltip" title="Show">
-                                                View
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('products/' . $product->id . '/edit') }}" data-toggle="tooltip" title="Edit">
+                                            <a class="btn btn-sm btn-info btn-block" href="#" data-toggle="tooltip" title="Edit">
                                                 Edit
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm btn-primary btn-block" href="{{ route('admin.products.variations.list', $product->slug) }}" data-toggle="tooltip" title="View Variatons">
-                                                View Variations
                                             </a>
                                         </td>
                                     </tr>
@@ -121,9 +126,8 @@
                                 @endforeach
                                 </tbody>
                             </table>
-
                             @if(config('usersmanagement.enablePagination'))
-                                {{ $products->links() }}
+                                {{ $childVariations->links() }}
                             @endif
 
                         </div>
@@ -138,7 +142,7 @@
 @endsection
 
 @section('footer_scripts')
-    @if ((count($products) > config('usersmanagement.datatablesJsStartCount')) && config('usersmanagement.enabledDatatablesJs'))
+    @if ((count($childVariations) > config('usersmanagement.datatablesJsStartCount')) && config('usersmanagement.enabledDatatablesJs'))
         @include('scripts.datatables')
     @endif
     @include('scripts.delete-modal-script')

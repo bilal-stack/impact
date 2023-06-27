@@ -1,7 +1,5 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: abc
- * Date: 6/9/2023
- * Time: 9:43 PM
- */
+@extends('front.layouts.app')
+
+@section('content')
+
+@endsection

@@ -35,7 +35,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                               Showing All Product <b>({{$product->title}})</b> Variations
+                               Showing All <b>{{$product->title}}</b>Product Variations
                             </span>
 
                             <div class="btn-group pull-right btn-group-xs">
@@ -90,6 +90,11 @@
                                         <td>
                                             <a class="btn btn-sm btn-success btn-block" href="{{route('admin.products.variations.sizes.attach', [$product->slug, $variation->id])}}" data-toggle="tooltip" title="Attach Sizes">
                                                 Attach Size with style
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary btn-block" href="{{route('admin.products.variations.sizes.styles.list', [$product->slug, $variation->id])}}" data-toggle="tooltip" title="View siazes & styles">
+                                              View sizes & styles
                                             </a>
                                         </td>
                                         <td>
