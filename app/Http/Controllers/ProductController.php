@@ -196,13 +196,13 @@ class ProductController extends Controller
                 $imageName = $product->getFirstMediaUrl('product-images');
             } else {
                 $imageName = str_slug($product->title) . '-' .time() . '.' . $request->product_image->extension();
-                $request->product_image->move(storage_path('app/public/product-style-images'), $imageName);
+                $request->product_image->move(storage_path('app/public/product-style-images/'), $imageName);
             }
 
             $backImageName = null;
             if ($request->has('back_image')) {
-                $backImageName = str_slug($product->title) . '-' . time() . '.3d-' . $request->back_image->extension();
-                $request->back_image->move(storage_path('app/public/product-style-images'), $imageName);
+                $backImageName = str_slug($product->title) . '-' . time() . '-3d.' . $request->back_image->extension();
+                $request->back_image->move(storage_path('app/public/product-style-images/'), $backImageName);
             }
 
             ProductVariations::create([
@@ -218,13 +218,13 @@ class ProductController extends Controller
 
         $product->update(['active' => 1]);
 
-        return redirect()->route('admin.products.variations.list', $product->slug)->with('success', 'Successfully attached');
+        return redirect()->route('admin.products.variations.sizes.styles.list', [$product->slug, $variation->id])->with('success', 'Successfully attached');
     }
 
     private function createStyle($request)
     {
         $imageName = str_slug($request->title) . '-' .time() . '.' . $request->option_image->extension();
-        $request->option_image->move(storage_path('app/public/variation-style-option-images'), $imageName);
+        $request->option_image->move(storage_path('app/public/variation-style-option-images/'), $imageName);
 
         $style =  VariationStyle::firstOrCreate([
             'title'         => $request->title,

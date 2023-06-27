@@ -18,11 +18,11 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            Attach Variation Sizes
+                            <label>Attach Variation size & styles - <b>{{$variation->title}}</b></label>
                             <div class="pull-right">
-                                <a href="{{ route('admin.products.list') }}" class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="Back to Products">
+                                <a href="{{ route('admin.products.variations.list', $product->slug) }}" class="btn btn-light btn-sm float-right" data-toggle="tooltip" data-placement="left" title="Back to Products">
                                     <i class="fa fa-fw fa-reply-all" aria-hidden="true"></i>
-                                    Back to Products
+                                    Back to product variations list
                                 </a>
                             </div>
                         </div>

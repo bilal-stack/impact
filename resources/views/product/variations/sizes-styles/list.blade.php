@@ -35,7 +35,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                               Showing all sizes and styles of {{$variation->title}} & Product <b>({{$product->title}})</b>
+                               Showing all sizes and styles of {{$variation->title}} & Product <b>{{$product->title}}</b>
                             </span>
 
                             <div class="btn-group pull-right btn-group-xs">
@@ -100,16 +100,16 @@
                                             @endif
                                         </td>
                                         <td>{{$var->price}}</td>
-                                        <td><img width="25%" src="{{asset('storage/variation-option-images/'.$var->image)}}"></td>
+                                        <td><img width="25%" src="{{asset('storage/product-style-images/'.$var->image)}}"></td>
                                         <td>
                                             @if($var->style != null)
-                                                <img width="25%" src="{{asset('storage/variation-option-images/'.$var->style->option_image)}}">
+                                                <img src="{{asset('storage/variation-style-option-images/'.$var->style->option_image)}}">
                                             @else
                                                 No style image
                                             @endif
 
                                         </td>
-                                        <td><img width="25%" src="{{asset('storage/variation-option-images/'.$var->back_image)}}"></td>
+                                        <td><img width="25%" src="{{asset('storage/product-style-images/'.$var->back_image)}}"></td>
                                         <td>
                                             {!! Form::open(array('url' => 'products/' . $var->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
