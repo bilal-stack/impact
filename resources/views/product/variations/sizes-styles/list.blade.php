@@ -89,7 +89,7 @@
                                             @if($var->size != null)
                                                 {{$var->size->title}}
                                             @else
-                                                No style
+                                                No size
                                             @endif
                                            </td>
                                         <td>

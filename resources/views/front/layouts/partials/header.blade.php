@@ -46,7 +46,7 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             @foreach($navCat as $cat)
-                                                <li><a class="dropdown-item" href="#">{{$cat->title}}</a></li>
+                                                <li><a class="dropdown-item" href="{{route('shop.category.product', $cat->slug)}}">{{$cat->title}}</a></li>
                                             @endforeach
                                         </ul>
                                     </li>
