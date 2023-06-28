@@ -109,7 +109,7 @@ class AjaxController extends Controller
                 ]);
         }
 
-        $path = storage_path('app/public/variation-option-images/');
+        $path = storage_path('app/public/variation-images/');
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
@@ -146,7 +146,7 @@ class AjaxController extends Controller
                 ]);
         }
 
-        $path = storage_path('app/public/variation-option-images');
+        $path = storage_path('app/public/variation-images');
 
         if (File::exists($path . '/' . $request->file)) {
             File::delete($path . '/' . $request->file);
