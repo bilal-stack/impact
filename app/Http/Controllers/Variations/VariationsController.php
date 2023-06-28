@@ -47,7 +47,7 @@ class VariationsController extends Controller
         Variation::create([
             'title'         => $request->title,
             'description'   => $request->description,
-            'option_image'  => 'variation-option-images/' . $request->document
+            'option_image'  => 'variation-images/' . $request->document
         ]);
 
         return redirect()->route('admin.variations.list')->with('success', 'Successfully created');

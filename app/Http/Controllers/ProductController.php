@@ -127,9 +127,6 @@ class ProductController extends Controller
     public function showProductVariationSizesStyles(Product $product, Variation $variation)
     {
        $childVariations = ProductVariations::where([['product_id', $product->id], ['variation_id', $variation->id]])->with('style', 'size')->paginate(15);
-
-        //dd($childVariations);
-
         return view('product.variations.sizes-styles.list')->with(compact('product', 'variation', 'childVariations'));
     }
 

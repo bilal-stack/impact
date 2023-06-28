@@ -32,12 +32,12 @@
                     <div class="product-img" >
                         <div class="zoom-area">
                             <div class="large"></div>
-                            <img src="{{$product->getFirstMediaUrl('product-images')}}" alt=""  class="small img-fluid">
+                            <img src="{{$product->getFirstMediaUrl('product-images')}}" alt="product-image"  class="small img-fluid">
                         </div>
                     </div>
                     <div class="click-link">
                         <p>
-                            <a href="">Click to enlarge</a>
+                            <a href="#">Click to enlarge</a>
                         </p>
                     </div>
                     <div class="row icon-menu">
