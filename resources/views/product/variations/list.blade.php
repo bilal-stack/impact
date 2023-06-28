@@ -68,7 +68,7 @@
                                 </caption>
                                 <thead class="thead">
                                 <tr>
-                                    <th>$</th>
+                                    <th>#</th>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th class="hidden-sm hidden-xs hidden-md">{!! trans('usersmanagement.users-table.created') !!}</th>

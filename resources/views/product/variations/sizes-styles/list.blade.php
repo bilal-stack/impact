@@ -68,7 +68,7 @@
                                 </caption>
                                 <thead class="thead">
                                 <tr>
-                                    <th>$</th>
+                                    <th>#</th>
                                     <th>Size</th>
                                     <th>Style</th>
                                     <th>Price</th>
@@ -100,14 +100,19 @@
                                             @endif
                                         </td>
                                         <td>{{$var->price}}</td>
-                                        <td><img width="25%" src="{{asset('storage/product-style-images/'.$var->image)}}"></td>
+                                        <td>
+                                            @if(str_contains($var->image, 'http'))
+                                                <img width="25%" src="{{$var->image}}">
+                                                @else
+                                                <img width="25%" src="{{asset('storage/product-style-images/'.$var->image)}}">
+                                            @endif
+                                        </td>
                                         <td>
                                             @if($var->style != null)
                                                 <img src="{{asset('storage/variation-style-option-images/'.$var->style->option_image)}}">
                                             @else
                                                 No style image
                                             @endif
-
                                         </td>
                                         <td><img width="25%" src="{{asset('storage/product-style-images/'.$var->back_image)}}"></td>
                                         <td>
