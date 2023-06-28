@@ -113,7 +113,7 @@ class ProductController extends Controller
      */
     public function productVariations(Product $product)
     {
-        $variations = $product->variations()->paginate(15);
+        $variations = $product->variations()->distinct('variations.id')->paginate(15);
         return view('product.variations.list')->with(compact('product', 'variations'));
     }
 
