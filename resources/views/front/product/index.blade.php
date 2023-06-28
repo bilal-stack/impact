@@ -1,5 +1,15 @@
 @extends('front.layouts.app')
 
+@section('template_title')
+  Shop Category {{$category->title}}
+@endsection
+
+@section('template_linked_css')
+@endsection
+
+@section('template_fastload_css')
+@endsection
+
 @section('content')
     <!-- Inner Page Banner  -->
     <section class="inner-banner">
@@ -32,7 +42,7 @@
                                 <span><i class="fa-regular fa-star"></i></span>
                             </div>
                             <p></p>
-                            <a href="#" class="golbal-btn">Details</a>
+                            <a href="{{route('shop.category.product.show', [$category->slug, $product->slug])}}" class="golbal-btn">Details</a>
                         </div>
                     </div>
                 </div>

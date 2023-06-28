@@ -558,9 +558,10 @@ section.product-sec.my-5 .col-md-5 {
 }
 
 .border-sizes {
+    text-align: center;
     border: 1px solid #cdcdcd;
-    width: 105%;
-    padding: 0 8px;
+    width: 100%;
+    padding: 0 4px;
     /* margin: 0 10px; */
     height: 32px;
     border-radius: 5px;
@@ -576,12 +577,11 @@ section.product-sec.my-5 .col-md-5 {
     color: #fff;
 }
 
-.border-sizes a {
+.border-sizes label {
     position: relative;
     top: 2px;
-    font-weight: 600;
-    font-size: 15px;
-    left: 15%;
+    font-weight: 500;
+    font-size: 13px;
 }
 
 .product-sizes .row .col-md-2 {

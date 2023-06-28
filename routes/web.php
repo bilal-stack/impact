@@ -24,6 +24,7 @@ Route::group(['middleware' => ['web', 'checkblocked']], function () {
     Route::get('/contact-us', [App\Http\Controllers\Front\HomeController::class, 'contact'])->name('contact.us');
     Route::get('/shop', [\App\Http\Controllers\Front\HomeController::class, 'shop'])->name('shop');
     Route::get('/shop/{category}', [\App\Http\Controllers\Front\ProductController::class, 'index'])->name('shop.category.product');
+    Route::get('/shop/{category}/{product}', [\App\Http\Controllers\Front\ProductController::class, 'show'])->name('shop.category.product.show');
 });
 
 // Authentication Routes

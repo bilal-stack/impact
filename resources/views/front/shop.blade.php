@@ -1,4 +1,13 @@
 @extends('front.layouts.app')
+@section('template_title')
+    Shop
+@endsection
+
+@section('template_linked_css')
+@endsection
+
+@section('template_fastload_css')
+@endsection
 
 @section('content')
     <!-- Inner Page Banner  -->
