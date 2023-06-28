@@ -96,7 +96,7 @@ class VariationsController extends Controller
             $file = $variation->option_image;
 
             $variation->update([
-                'option_image'  => 'variation-option-images/' . $request->document
+                'option_image'  => 'variation-images/' . $request->document
             ]);
 
             deleteTempFolder('storage/'. $file, 'file');
