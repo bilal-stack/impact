@@ -23,7 +23,7 @@ class CreateProductVariationsTable extends Migration
             $table->foreign('variation_size_id')->references('id')->on('variation_sizes')->onDelete('cascade');
             $table->unsignedBigInteger('variation_style_id')->nullable();
             $table->foreign('variation_style_id')->references('id')->on('variation_styles')->onDelete('cascade');
-            $table->float('price')->default(0);
+            $table->decimal('price', 65,2)->default(0);
             $table->string('image')->nullable();
             $table->string('back_image')->nullable();
             $table->timestamps();

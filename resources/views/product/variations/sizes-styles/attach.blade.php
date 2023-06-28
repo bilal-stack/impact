@@ -181,7 +181,7 @@
                             {!! Form::label('price', 'Price', array('class' => 'col-md-3 control-label')); !!}
                             <div class="col-md-9">
                                 <div class="input-group">
-                                    <input type="number" name="price" id="price" class="form-control {{ $errors->has('price') ? ' has-error ' : '' }}" value="{{old('price')}}">
+                                    <input type="number" step="any" name="price" id="price" class="form-control {{ $errors->has('price') ? ' has-error ' : '' }}" value="{{old('price')}}">
                                     <div class="input-group-append">
                                         <label class="input-group-text" for="price">
                                             <i class="fa fa-fw fa-dollar" aria-hidden="true"></i>
