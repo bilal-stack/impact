@@ -69,12 +69,13 @@ Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep', 'chec
     ]);
 });
 
-// Registered, activated, and is current user routes.
+// Registered, activated, and is current logged in user routes.
 include 'user.php';
 
 // Registered, activated, and is admin routes.
 include 'admin.php';
 
+//ajax requests routes
 include 'ajax.php';
 
 Route::redirect('/php', '/phpinfo', 301);

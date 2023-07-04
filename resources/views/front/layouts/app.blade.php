@@ -43,7 +43,6 @@
 
 </head>
 <body>
-
 <!-- header Sec  -->
 @include('front.layouts.partials.header')
 

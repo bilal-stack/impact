@@ -4,13 +4,39 @@
     Product {{$product->title}}
 @endsection
 
-@section('template_linked_css')
-@endsection
+@section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+   <style>
+       .accordion-body {
+           padding-bottom: 22px;
+       }
 
-@section('template_fastload_css')
+       .page-navigation {
+           padding-top: 16px;
+           text-align: center;
+       }
+
+       .page-navigation a {
+           color: grey;
+           padding: 3px 7px;
+           text-decoration: none;
+           border: 1px solid #ddd; /* Gray */
+       }
+
+       .page-navigation a[data-selected] {
+           background-color: #7f032f;
+           color: white;
+       }
+
+       .page-navigation a:hover:not(.active) {
+           background-color: #ddd;
+       }
+
+   </style>
 @endsection
 
 @section('content')
+
     <!-- Inner Page Banner  -->
     <section class="inner-banner">
         <div class="container">
@@ -25,51 +51,84 @@
     </section>
     <!-- Inner Page Banner  -->
     <!-- product detail sec -->
+
     <section class="product-sec my-5">
         <div class="container">
+            <section id="loading">
+                <div id="loading-content"></div>
+            </section>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="product-img" >
+                    <div class="product-img">
                         <div class="zoom-area">
                             <div class="large"></div>
-                            <img src="{{$product->getFirstMediaUrl('product-images')}}" alt="product-image"  class="small img-fluid">
+                            <img id="product-image" src="{{$product->getFirstMediaUrl('product-images')}}" alt="product-image" data-caption="Single image" class="small img-fluid">
                         </div>
                     </div>
                     <div class="click-link">
-                        <p>
-                            <a href="#">Click to enlarge</a>
-                        </p>
+                        <small>
+                            <a id="click-enlarge" data-fancybox href="{{$product->getFirstMediaUrl('product-images')}}">Click to enlarge</a>
+                        </small>
                     </div>
                     <div class="row icon-menu">
                         <div class="col">
-                            <a href="#"><img src="{{asset('front/assets/images/icon-movie.png')}}" alt=""><br>
-                                <p> Live Preview AR</p></a>
+                            <a href="#">
+                                <img src="{{asset('front/assets/images/icon-movie.png')}}" alt=""><br>
+                                <p> Live Preview AR</p>
+                            </a>
                         </div>
                         <div class="col">
-                            <a href="#"><img src="{{asset('front/assets/images/icon-image.png')}}" alt=""><br>
-                                <p>Wall Preview</p> </a>
+                            <a href="#">
+                                <img src="{{asset('front/assets/images/icon-image.png')}}" alt=""><br>
+                                <p>Wall Preview</p>
+                            </a>
                         </div>
                         <div class="col">
-                            <a href="#"><img src="{{asset('front/assets/images/icon-3d.png')}}" alt=""><br>
-                                <p>360 view Tool</p></a>
+                            <a href="#">
+                                <img src="{{asset('front/assets/images/icon-3d.png')}}" alt=""><br>
+                                <p>360 view Tool</p>
+                            </a>
                         </div>
                         <div class="col">
-                            <a href="#"><img src="{{asset('front/assets/images/icon-heart.png')}}" alt=""><br>
-                                <p>Save To Favorites</p></a>
+                            <a href="#">
+                                <img src="{{asset('front/assets/images/icon-heart.png')}}" alt=""><br>
+                                <p>Save To Favorites</p>
+                            </a>
                         </div>
                         <div class="col">
-                            <a href="#"><img src="{{asset('front/assets/images/icon-email.png')}}" alt=""><br>
-                                <p>Email a Friend</p></a>
+                            <a href="#">
+                                <img src="{{asset('front/assets/images/icon-email.png')}}" alt=""><br>
+                                <p>Email a Friend</p>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 px-4">
                     <div class="product-info">
-                        <h1>{{$product->title}}</h1>
-                        <h2 class="prize bold"> <b> 120$ </b></h2>
+                        <h3>{{$product->title}}</h3>
+                        <h2 class="prize bold">
+                            <b id="product-price"> ${{$price}} </b>
+                        </h2>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <span>Add a message</span>
+                            <textarea class="form-control" style="width: 85%"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-2">
+                            <input type="number" class="form-control" name="qty" value="1"/>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-dark" name="qty" style="width: 100%">Add to cart</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-dark" name="qty">Instant Checkout</button>
+                        </div>
                     </div>
                     <div class="product-border">
-
                         <div class="accordion" id="accordionExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
@@ -79,13 +138,16 @@
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <div class="row">
+                                        <div class="row m-pagination" id="variations-row">
                                             @foreach($variations as $var)
                                                 <div class="col-md-3">
                                                     <div class="border-img variation_div" onclick="updateSelectedVariation(this)">
-                                                        <img src="{{asset('storage/'.$var->option_image)}}" alt="" onclick="triggerVariationEvent(this, '{{$product->id}}', '{{ $var->id}}')">
+                                                        <img class="variation-image" src="{{asset('storage/'.$var->option_image)}}" alt="" onclick="triggerVariationEvent(this, '{{$product->slug}}', '{{ $var->id}}')">
                                                         <span class="tick"></span>
-                                                        <h6 class=""><small>{{$var->title}}</small></h6>
+                                                        <h6 onclick="triggerVariationEvent(this, '{{$product->slug}}', '{{ $var->id}}')" class="">
+                                                            <small>{{$var->title}}</small>
+                                                        </h6>
+                                                        <label class="variation-info d-none">{{$var->id}}</label>
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -101,14 +163,12 @@
                                 </h2>
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <div class="row">
+                                        <div class="row" id="sizes-row">
                                             @foreach($sizes as $size)
                                                 <div class="col-md-3 mb-2 size">
-                                                    <a href="#">
-                                                        <div class="border-sizes size_div" onclick="updateSelectedSize(this)">
-                                                            <label>{{$size->title}}</label>
-                                                        </div>
-                                                    </a>
+                                                    <div class="border-sizes size_div" onclick="triggerSizeEvent(this, '{{$product->slug}}', {{$size->id}})">
+                                                        <label data-info="{{$size->id}}">{{$size->title}}</label>
+                                                    </div>
                                                 </div>
                                             @endforeach
                                         </div>
@@ -124,13 +184,14 @@
                                 </h2>
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <div class="row">
+                                        <div class="row" id="styles-row">
                                             @foreach($styles as $style)
                                             <div class="col-md-3 style_div">
-                                                <div class="border-img" onclick="updateSelectedStyle(this)">
-                                                    <img src="{{asset('storage/variation-style-option-images/'.$style->option_image)}}" alt="" onclick="toggleTick(this)">
-                                                    <span class="tick"></span>
+                                                <div class="border-img" onclick="updateSelectedStyle(this, {{$style->id}})">
+                                                    <img src="{{asset('storage/variation-style-option-images/'.$style->option_image)}}" alt="" onclick="toggleTickStyle(this)">
+                                                    <span class="style-tick"></span>
                                                     <h6><small>{{$style->title}}</small></h6>
+                                                    <label class="variation-style-info d-none">{{$style->id}}</label>
                                                 </div>
                                             </div>
                                             @endforeach
@@ -142,7 +203,6 @@
 
                     </div>
 
-
                 </div>
             </div>
         </div>
@@ -151,5 +211,27 @@
 @endsection
 
 @section('footer_scripts')
+    <script src="{{asset('js/pagination/jquery-paginate.min.js')}}" type="text/javascript"></script>
+    <script>
+        var selectedVariation = '';
+        var selectedSize = '';
+        var selectedStyle = '';
+
+        $('#variations-row').paginate({
+            childrenSelector:'div',
+            limit: 24,
+            previous:false,
+            next:false,
+            first:false,
+            last:false,
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <script>
+        Fancybox.bind("[data-fancybox]", {
+            // Your custom options
+        });
+    </script>
+    <script src="{{asset('js/front/product/other.js')}}"></script>
     <script src="{{asset('js/front/product/product.js')}}"></script>
 @endsection

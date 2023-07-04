@@ -104,7 +104,7 @@
                                             {!! Form::close() !!}
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-info btn-block" href="#" data-toggle="tooltip" title="Edit">
+                                            <a class="btn btn-sm btn-info btn-block" href="{{route('admin.products.variations.attach', $product->slug)}}" data-toggle="tooltip" title="Edit">
                                                 Edit
                                             </a>
                                         </td>

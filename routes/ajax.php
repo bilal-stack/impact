@@ -31,4 +31,10 @@ Route::prefix('ajax')->name('ajax.')->group(function () {
     Route::prefix('setting')->name('settings.')->group(function () {
         Route::post('update', [\App\Http\Controllers\Ajax\AjaxController::class, 'updateSettings'])->name('update');
     });
+
+    //web ajax routes
+    //get product & variation sizes & styles with image & price
+    Route::get('get-product-variation-sizes-styles/{product}/{variation_id}', [\App\Http\Controllers\Front\ProductController::class, 'productVariationSizesStyles'])->name('get.product.variation.sizes.styles');
+    Route::get('get-product-variation-styles/{product}/{variation_id}/{size_id}', [\App\Http\Controllers\Front\ProductController::class, 'productVariationStyles'])->name('get.product.variation.styles');
+
 });

@@ -63,9 +63,6 @@
                             @endif
                         </div>
 
-
-
-
                         {!! Form::button('Attach', array('class' => 'btn btn-success margin-bottom-1 mb-1 float-right','type' => 'submit' )) !!}
                         {!! Form::close() !!}
                     </div>
@@ -74,9 +71,7 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('footer_scripts')
-
 @endsection

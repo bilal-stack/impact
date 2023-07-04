@@ -588,23 +588,19 @@ section.product-sec.my-5 .col-md-5 {
     padding: 8px 7px;
 }
 
-.product-img img {
-    width: 600px;
-    margin-left: -65px;
-}
-
 .small {
     display: block;
 }
 
-.size a{
+.size a {
     color: black;
     text-decoration: none;
 }
 
 .zoom-area {
-    width: 500px;
-    margin: 50px auto;
+    /*width: 500px;*/
+    /*margin: 50px auto;*/
+    padding-bottom: 10px;
     position: relative;
     cursor: none
 }
@@ -670,6 +666,12 @@ section.product-sec.my-5 .col-md-5 {
     margin-top: 4%;
 }
 
+.product-info h3 {
+    color: gray;
+    letter-spacing: 1px;
+    font-weight: 400;
+}
+
 .tick {
     position: relative;
     display: none;
@@ -677,6 +679,23 @@ section.product-sec.my-5 .col-md-5 {
 }
 
 .tick:after {
+    content: "\f00c";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 52px;
+    position: absolute;
+    top: -68px;
+    left: 11px;
+    color: #c1c1c1;
+}
+
+.style-tick {
+    position: relative;
+    display: none;
+
+}
+
+.style-tick:after {
     content: "\f00c";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
@@ -713,20 +732,14 @@ section.product-sec.my-5 .col-md-5 {
     margin: 0 3px;
 }
 
-.click-link p {
+.click-link {
+    padding-bottom: 20px;
     text-align: center;
-    margin-top: -5%;
 }
 
-.click-link p a {
+.click-link small a {
     color: #000;
-    font-size: 17px;
-    font-weight: 500;
-}
-
-.row.icon-menu {
-    margin-left: -13%;
-    width: 120%;
+    text-decoration: none;
 }
 
 .row.icon-menu .col p {
@@ -1467,3 +1480,42 @@ h2 {
 }
 
 /* CONTACT FORM SEC  */
+
+.loading {
+    z-index: 20;
+    position: absolute;
+    /*top: 0;*/
+    left: -3px;
+    width: 100%;
+    height: 150vh;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.loading-content {
+    position: absolute;
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    top: 40%;
+    left: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.variation_div h6 {
+    cursor: pointer;
+}
+
+.style_div h6 {
+    cursor: pointer;
+}
