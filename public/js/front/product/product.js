@@ -45,7 +45,6 @@ function getSizesWithStyle(productId, variationId) {
     });
 }
 
-
 //trigger variation event
 function triggerSizeEvent(element, productId, sizeId) {
     updateSelectedSize(element);
