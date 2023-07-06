@@ -111,6 +111,7 @@ function updateSelectedVariation(element) {
     borderNameSpan.innerText = name;
 
     selectedVariation = element.querySelector('label').innerText;
+    $('#variation_input').val(selectedVariation);
 }
 
 //variation, size & style text update
@@ -122,6 +123,7 @@ function updateSelectedSize(element) {
     $(element).addClass('clicked');
 
     selectedSize = element.querySelector('label').getAttribute('data-info');
+    $('#size_input').val(selectedSize);
 }
 
 //variation, size & style text update
@@ -131,4 +133,5 @@ function updateSelectedStyle(element) {
     borderNameSpan.innerText = name;
 
     selectedStyle = element.querySelector('label').innerText;
+    $('#style_input').val(selectedStyle);
 }

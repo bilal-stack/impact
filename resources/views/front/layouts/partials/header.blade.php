@@ -14,8 +14,8 @@
             </div>
             <div class="col-md-7 ">
                 <div class="icon-list">
-                    <span><a href="#"><i class="fa-solid fa-heart"></i></a></span>
-                    <span><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></span>
+                    <span><a href="{{route('wishlist')}}"><i class="fa-solid fa-heart"></i></a></span>
+                    <span><a href="{{route('cart.list')}}"><i class="fa-solid fa-cart-shopping"></i></a></span>
                     <span><a href="{{url('home')}}"><i class="fa-solid fa-user"></i></a></span>
                     @guest
                         <p><a href="{{route('register')}}">Create An Account</a></p>

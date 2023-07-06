@@ -36,5 +36,6 @@ Route::prefix('ajax')->name('ajax.')->group(function () {
     //get product & variation sizes & styles with image & price
     Route::get('get-product-variation-sizes-styles/{product}/{variation_id}', [\App\Http\Controllers\Front\ProductController::class, 'productVariationSizesStyles'])->name('get.product.variation.sizes.styles');
     Route::get('get-product-variation-styles/{product}/{variation_id}/{size_id}', [\App\Http\Controllers\Front\ProductController::class, 'productVariationStyles'])->name('get.product.variation.styles');
+    Route::get('get-product-variation-styles-data/{product}/{variation_id}/{size_id}/{style_id}', [\App\Http\Controllers\Front\ProductController::class, 'productVariationStylesData'])->name('get.product.variation.styles.data');
 
 });

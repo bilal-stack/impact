@@ -9,6 +9,7 @@ use App\Models\ProductVariations;
 use App\Models\Variation;
 use App\Models\VariationSize;
 use App\Models\VariationStyle;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -56,12 +57,12 @@ class ProductController extends Controller
      *
      * @param  Product $product
      * @param  $variation
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function productVariationSizesStyles(Product $product, $variation)
     {
         $size = ProductVariations::where([['product_id', $product->id], ['variation_id', $variation]])->pluck('variation_size_id')->first();
-        //getting styles for first variation and size
+        //getting styles for selected variation
         $styles = ProductVariations::where([['product_id', $product->id], ['variation_id', $variation], ['variation_size_id', $size]])->pluck('variation_style_id');
         $styles = VariationStyle::whereIn('id', $styles)->get();
         //getting sizes
@@ -78,8 +79,7 @@ class ProductController extends Controller
             $image = asset('storage/product-style-images/' . $data->image);
         }
 
-        return Response::json(
-            [
+        return Response::json([
                 'success'   => true,
                 'sizes'     => $sizes->toArray(),
                 'styles'    => $styles->toArray(),
@@ -94,23 +94,16 @@ class ProductController extends Controller
      *
      * @param  Product $product
      * @param  $variation
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function productVariationStyles(Product $product, $variation, $size)
     {
-        dd($product, $variation, $size);
-
-        $size = ProductVariations::where([['product_id', $product->id], ['variation_id', $variation]])->pluck('variation_size_id')->first();
-        //getting styles for first variation and size
+        //getting styles for selected variation and size
         $styles = ProductVariations::where([['product_id', $product->id], ['variation_id', $variation], ['variation_size_id', $size]])->pluck('variation_style_id');
         $styles = VariationStyle::whereIn('id', $styles)->get();
-        //getting sizes
-        $sizes = ProductVariations::where([['product_id', $product->id], ['variation_id', $variation]])->distinct('variation_size_id')->pluck('variation_size_id');
-        $sizes = VariationSize::whereIn('id', $sizes)->get();
 
         $data = ProductVariations::select('price', 'image')->where([['product_id', $product->id], ['variation_id', $variation], ['variation_size_id', $size]])->first();
         $price = $data->price;
-
 
         if (strpos($data->image, "https") !== false) {
             $image = $data->image;
@@ -121,10 +114,55 @@ class ProductController extends Controller
         return Response::json(
             [
                 'success'   => true,
-                'sizes'     => $sizes->toArray(),
                 'styles'    => $styles->toArray(),
                 'price'     => $price,
                 'image'     => $image,
+            ]);
+    }
+
+    /**
+     * Getting the specified resource details.
+     * Ajax request
+     *
+     * @param  Product $product
+     * @param  $variation
+     * @param $size
+     * @param $style
+     * @return JsonResponse
+     */
+    public function productVariationStylesData(Product $product, $variation, $size, $style)
+    {
+        //getting styles for selected variation and size
+        $styles = ProductVariations::where([['product_id', $product->id], ['variation_id', $variation], ['variation_size_id', $size], ['variation_style_id', $style]])->first();
+
+        if (empty($styles)){
+            return $this->returnErrorResponse();
+        }
+
+        $price = $styles->price;
+
+        if (strpos($styles->image, "https") !== false) {
+            $image = $styles->image;
+        } else {
+            $image = asset('storage/product-style-images/' . $styles->image);
+        }
+
+        return Response::json(
+            [
+                'success'   => true,
+                'styles'    => $styles->toArray(),
+                'price'     => $price,
+                'image'     => $image,
+            ]);
+    }
+
+    public function returnErrorResponse()
+    {
+        return Response::json([
+                'success'   => false,
+                'styles'    => null,
+                'price'     => null,
+                'image'     => null,
             ]);
     }
 

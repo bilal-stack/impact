@@ -54,6 +54,24 @@
 
     <section class="product-sec my-5">
         <div class="container">
+            @if($errors->any())
+                @foreach ($errors->all() as $error)
+                    <p class="shopping-info-txt text-danger"><i class="fas fa-info-circle"></i>
+                        {{ $error }}
+                        @endforeach
+                    </p>
+                    @endif
+
+                    @if(session('success'))
+                        <div class="alert alert-success">{{session('success')}}</div>
+                    @endif
+
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
             <section id="loading">
                 <div id="loading-content"></div>
             </section>
@@ -90,7 +108,7 @@
                             </a>
                         </div>
                         <div class="col">
-                            <a href="#">
+                            <a href="{{route('favorite.add', $product->slug)}}">
                                 <img src="{{asset('front/assets/images/icon-heart.png')}}" alt=""><br>
                                 <p>Save To Favorites</p>
                             </a>
@@ -110,24 +128,31 @@
                             <b id="product-price"> ${{$price}} </b>
                         </h2>
                     </div>
-
+                    <form action="{{route('cart.store')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="product" value="{{$product->slug}}">
+                        <input type="hidden" name="variation" value="" id="variation_input">
+                        <input type="hidden" name="size" value="" id="size_input">
+                        <input type="hidden" name="style" value="" id="style_input">
+                        <input type="hidden" name="price" value="{{$price}}" id="price_input">
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             <span>Add a message</span>
-                            <textarea class="form-control" style="width: 85%"></textarea>
+                            <textarea name="message" class="form-control" style="width: 85%"></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-2">
-                            <input type="number" class="form-control" name="qty" value="1"/>
+                            <input required type="number" class="form-control" name="qty" value="1"/>
                         </div>
                         <div class="col-md-4">
-                            <button class="btn btn-dark" name="qty" style="width: 100%">Add to cart</button>
+                            <button type="submit" class="btn btn-dark" style="width: 100%">Add to cart</button>
                         </div>
                         <div class="col-md-4">
-                            <button class="btn btn-dark" name="qty">Instant Checkout</button>
+                            <button type="submit" class="btn btn-dark" >Instant Checkout</button>
                         </div>
                     </div>
+                    </form>
                     <div class="product-border">
                         <div class="accordion" id="accordionExample">
                             <div class="accordion-item">
@@ -186,14 +211,14 @@
                                     <div class="accordion-body">
                                         <div class="row" id="styles-row">
                                             @foreach($styles as $style)
-                                            <div class="col-md-3 style_div">
-                                                <div class="border-img" onclick="updateSelectedStyle(this, {{$style->id}})">
-                                                    <img src="{{asset('storage/variation-style-option-images/'.$style->option_image)}}" alt="" onclick="toggleTickStyle(this)">
-                                                    <span class="style-tick"></span>
-                                                    <h6><small>{{$style->title}}</small></h6>
-                                                    <label class="variation-style-info d-none">{{$style->id}}</label>
+                                                <div class="col-md-3 style_div">
+                                                    <div class="border-img" onclick="triggerStyleEvent(this, '{{$product->slug}}', {{$style->id}})">
+                                                        <img src="{{asset('storage/variation-style-option-images/'.$style->option_image)}}" alt="" onclick="toggleTickStyle(this)">
+                                                        <span class="style-tick"></span>
+                                                        <h6><small>{{$style->title}}</small></h6>
+                                                        <label class="variation-style-info d-none">{{$style->id}}</label>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             @endforeach
                                         </div>
                                     </div>
@@ -202,7 +227,6 @@
                         </div>
 
                     </div>
-
                 </div>
             </div>
         </div>
@@ -216,6 +240,7 @@
         var selectedVariation = '';
         var selectedSize = '';
         var selectedStyle = '';
+        var styleImagePath = '{!! asset('storage/variation-style-option-images/') !!}';
 
         $('#variations-row').paginate({
             childrenSelector:'div',

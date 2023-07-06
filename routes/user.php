@@ -36,4 +36,9 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', '
 
     // Route to upload user avatar.
     Route::post('avatar/upload', ['as' => 'avatar.upload', 'uses' => 'ProfilesController@upload']);
+
+    //wishlist user
+    Route::get('favorite-add/{product}', [\App\Http\Controllers\WishlistController::class, 'favoriteAdd'])->name('favorite.add');
+    Route::get('favorite-remove/{product}', [\App\Http\Controllers\WishlistController::class, 'favoriteRemove'])->name('favorite.remove');
+    Route::get('wishlist', [\App\Http\Controllers\WishlistController::class, 'wishlist'])->name('wishlist');
 });

@@ -25,6 +25,14 @@ Route::group(['middleware' => ['web', 'checkblocked']], function () {
     Route::get('/shop', [\App\Http\Controllers\Front\HomeController::class, 'shop'])->name('shop');
     Route::get('/shop/{category}', [\App\Http\Controllers\Front\ProductController::class, 'index'])->name('shop.category.product');
     Route::get('/shop/{category}/{product}', [\App\Http\Controllers\Front\ProductController::class, 'show'])->name('shop.category.product.show');
+
+    Route::prefix('cart')->name('cart.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\CartController::class, 'cartList'])->name('list');
+        Route::post('/', [\App\Http\Controllers\CartController::class, 'addToCart'])->name('store');
+        Route::post('/update-cart', [\App\Http\Controllers\CartController::class, 'updateCart'])->name('update');
+        Route::post('/remove', [\App\Http\Controllers\CartController::class, 'removeCart'])->name('remove');
+        Route::get('/clear', [\App\Http\Controllers\CartController::class, 'clearAllCart'])->name('clear');
+    });
 });
 
 // Authentication Routes

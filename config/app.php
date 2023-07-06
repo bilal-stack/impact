@@ -176,7 +176,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         \SocialiteProviders\Manager\ServiceProvider::class,
-        \App\Providers\ViewServiceProvider::class
+        \App\Providers\ViewServiceProvider::class,
+        \Darryldecode\Cart\CartServiceProvider::class
+
     ],
 
     /*
@@ -233,6 +235,7 @@ return [
         'Gravatar'      => Creativeorange\Gravatar\Facades\Gravatar::class,
         'Image'         => Intervention\Image\Facades\Image::class,
         'Uuid'          => Webpatser\Uuid\Uuid::class,
+        'Cart'          => Darryldecode\Cart\Facades\CartFacade::class
     ],
 
 ];

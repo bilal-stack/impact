@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use LamaLama\Wishlist\Wishlistable;
 
 class Product extends Model implements HasMedia
 {
-    use InteractsWithMedia;
+    use InteractsWithMedia, Wishlistable;
     /**
      * The attributes that are not mass assignable.
      *
@@ -80,7 +81,7 @@ class Product extends Model implements HasMedia
 
     public function category()
     {
-        return $this->hasOne(Category::class, 'category_id');
+        return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
     public function subCategory()
