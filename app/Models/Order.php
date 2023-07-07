@@ -76,15 +76,6 @@ class Order extends Model
     ];
 
     /**
-     * Creating order_number
-     *
-     */
-    public function setOrderNumberAttribute()
-    {
-        $this->attributes['order_number'] = Str::uuid();
-    }
-
-    /**
      * Get the route key for the model.
      *
      * @return string

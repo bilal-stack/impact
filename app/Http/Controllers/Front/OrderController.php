@@ -51,7 +51,7 @@ class OrderController extends Controller
         $finalAmount = \Cart::getTotal();
 
         $order = Order::create([
-            'order_number'  => Str::uuid(),
+            'order_number'  => 'order-' . date('dmY') . '-' . str_pad($user->id, 3, 0, STR_PAD_LEFT),
             'user_id'       => $user->id,
             'phone'         => $request->phone,
             'email'         => $request->email,
@@ -82,7 +82,7 @@ class OrderController extends Controller
             ]);
         }
 
-        //\Cart::clear();
+        \Cart::clear();
 
         return redirect()->route('order.thankyou', $order->order_number);
     }
