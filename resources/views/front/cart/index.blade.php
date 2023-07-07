@@ -122,7 +122,7 @@
                         </div>
                     </div>
                     <div class="last-cart-btn">
-                        <a href="#" class="golbal-btn">Checkout</a>
+                        <a href="{{route('order.checkout')}}" class="golbal-btn">Checkout</a>
                     </div>
                 </div>
             </div>

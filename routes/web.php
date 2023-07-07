@@ -27,11 +27,18 @@ Route::group(['middleware' => ['web', 'checkblocked']], function () {
     Route::get('/shop/{category}/{product}', [\App\Http\Controllers\Front\ProductController::class, 'show'])->name('shop.category.product.show');
 
     Route::prefix('cart')->name('cart.')->group(function () {
-        Route::get('/', [\App\Http\Controllers\CartController::class, 'cartList'])->name('list');
-        Route::post('/', [\App\Http\Controllers\CartController::class, 'addToCart'])->name('store');
-        Route::post('/update-cart', [\App\Http\Controllers\CartController::class, 'updateCart'])->name('update');
-        Route::post('/remove', [\App\Http\Controllers\CartController::class, 'removeCart'])->name('remove');
-        Route::get('/clear', [\App\Http\Controllers\CartController::class, 'clearAllCart'])->name('clear');
+        Route::get('/', [\App\Http\Controllers\Front\CartController::class, 'cartList'])->name('list');
+        Route::post('/', [\App\Http\Controllers\Front\CartController::class, 'addToCart'])->name('store');
+        Route::post('/update-cart', [\App\Http\Controllers\Front\CartController::class, 'updateCart'])->name('update');
+        Route::post('/remove', [\App\Http\Controllers\Front\CartController::class, 'removeCart'])->name('remove');
+        Route::get('/clear', [\App\Http\Controllers\Front\CartController::class, 'clearAllCart'])->name('clear');
+    });
+
+    Route::prefix('order')->name('order.')->group(function () {
+        Route::post('/store', [\App\Http\Controllers\Front\OrderController::class, 'store'])->name('store');
+        Route::get('/checkout', [\App\Http\Controllers\Front\OrderController::class, 'checkout'])->name('checkout');
+        Route::get('/thankyou/{order}', [\App\Http\Controllers\Front\OrderController::class, 'thankyou'])->name('thankyou');
+        Route::get('/failed/{order}', [\App\Http\Controllers\Front\OrderController::class, 'failed'])->name('failed');
     });
 });
 
