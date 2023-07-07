@@ -237,6 +237,8 @@
 @section('footer_scripts')
     <script src="{{asset('js/pagination/jquery-paginate.min.js')}}" type="text/javascript"></script>
     <script>
+        var baseUrl = '{!! url("/") !!}';
+        console.log(baseUrl);
         var selectedVariation = '';
         var selectedSize = '';
         var selectedStyle = '';
