@@ -14,7 +14,7 @@ function triggerVariationEvent(image, productId, variationId) {
 function getSizesWithStyle(productId, variationId) {
     $.ajax({
         method: "GET",
-        url: '/ajax/get-product-variation-sizes-styles/' + productId + '/' + variationId,
+        url: baseUrl + 'ajax/get-product-variation-sizes-styles/' + productId + '/' + variationId,
         error: function (error) {
             alert(error);
         },
@@ -56,7 +56,7 @@ function getStyles(productId, sizeId) {
 
     $.ajax({
         method: "GET",
-        url: '/ajax/get-product-variation-styles/' + productId + '/' + selectedVariation + '/' + sizeId,
+        url: baseUrl + 'ajax/get-product-variation-styles/' + productId + '/' + selectedVariation + '/' + sizeId,
         error: function (error) {
             alert(error);
         },
@@ -101,7 +101,7 @@ function getStylesData(productId, styleId) {
 
     $.ajax({
         method: "GET",
-        url: '/ajax/get-product-variation-styles-data/' + productId + '/' + selectedVariation + '/' + selectedSize + '/' + styleId,
+        url: baseUrl + 'ajax/get-product-variation-styles-data/' + productId + '/' + selectedVariation + '/' + selectedSize + '/' + styleId,
         error: function (error) {
             alert(error);
         },
@@ -121,4 +121,3 @@ function getStylesData(productId, styleId) {
         //readyWindow('variation', 'sizes', 'style');
     });
 }
-
