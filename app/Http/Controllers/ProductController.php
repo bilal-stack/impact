@@ -177,7 +177,7 @@ class ProductController extends Controller
      */
     public function showProductVariationSizesStyles(Product $product, Variation $variation)
     {
-       $childVariations = ProductVariations::where([['product_id', $product->id], ['variation_id', $variation->id]])->with('style', 'size')->paginate(15);
+        $childVariations = ProductVariations::where([['product_id', $product->id], ['variation_id', $variation->id]])->with('style', 'size')->paginate(15);
         return view('product.variations.sizes-styles.list')->with(compact('product', 'variation', 'childVariations'));
     }
 
@@ -282,6 +282,62 @@ class ProductController extends Controller
         ]);
 
         return $style->id;
+    }
+
+
+    /**
+     * Attach product variation Sizes.
+     *
+     * @param  ProductVariations $productVariations
+     * @return \Illuminate\Http\Response
+     */
+    public function editVariationSizes(ProductVariations $productVariations)
+    {
+        $product = Product::findOrFail($productVariations->product_id);
+        $variation = Variation::findOrFail($productVariations->variation_id);
+        $size = VariationSize::findOrFail($productVariations->variation_size_id);
+        $style = VariationStyle::findOrFail($productVariations->variation_style_id);
+
+        return view('product.variations.sizes-styles.edit')->with(compact('product', 'variation', 'size', 'style', 'productVariations'));
+    }
+
+    public function updateVariationsSizes(Request $request, ProductVariations $productVariations)
+    {
+        $request->validate([
+            'variation_size_id'         => ['required', 'string', 'exists:variation_sizes,id'],
+            'variation_style_id'        => ['required', 'exists:variation_styles,id'],
+            'price'                     => ['required', 'numeric', 'gt:0'],
+            'product_image'             => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:1028'],
+            'back_product_image'        => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:1028'],
+        ],
+            [
+                'title_id.required' => 'You need to select style',
+            ]);
+
+        $product = Product::findOrFail($productVariations->product_id);
+
+        if ($request->has('product_image')) {
+
+            if (strpos($productVariations->image, "https") == false) {
+                deleteTempFolder('storage/product-style-images/' . $productVariations->image, 'file');
+            }
+
+            $imageName = str_slug($product->title) . '-' .time() . '.' . $request->product_image->extension();
+            $request->product_image->move(storage_path('app/public/product-style-images/'), $imageName);
+            $request->merge(['image' => $imageName]);
+        }
+
+        if ($request->has('back_product_image')) {
+            deleteTempFolder($productVariations->back_image, 'file');
+
+            $backImageName = str_slug($product->title) . '-' . time() . '-3d.' . $request->back_product_image->extension();
+            $request->back_product_image->move(storage_path('app/public/product-style-images/'), $backImageName);
+            $request->merge(['back_image' => $backImageName]);
+        }
+
+        $productVariations->update($request->except('_token', '_method', 'product_id', 'variation_id'));
+
+        return redirect()->route('admin.products.variations.list', $product->slug)->with('success', 'Edited Successfully');
     }
 
     /**

@@ -78,6 +78,10 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
         Route::get('product-variations-sizes-styles/{product}/{variation}', [\App\Http\Controllers\ProductController::class, 'showProductVariationSizesStyles'])->name('products.variations.sizes.styles.list');
         Route::get('attach-variations-sizes/{product}/{variation}', [\App\Http\Controllers\ProductController::class, 'attachVariationSizes'])->name('products.variations.sizes.attach');
         Route::post('store-variations-sizes/{product}/{variation}', [\App\Http\Controllers\ProductController::class, 'storeVariationsSizes'])->name('products.variations.sizes.store');
+
+        //edit attached sizes & styles
+        Route::get('edit-variations-sizes/{productVariations}', [\App\Http\Controllers\ProductController::class, 'editVariationSizes'])->name('products.variations.sizes.edit');
+        Route::post('update-variations-sizes/{productVariations}', [\App\Http\Controllers\ProductController::class, 'updateVariationsSizes'])->name('products.variations.sizes.update');
     });
 
 });
