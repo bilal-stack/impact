@@ -86,7 +86,7 @@ class Product extends Model implements HasMedia
 
     public function subCategory()
     {
-        return $this->hasOne(SubCategory::class, 'sub_category_id');
+        return $this->hasOne(SubCategory::class, 'id','sub_category_id');
     }
 
     public function variations()

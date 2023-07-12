@@ -107,7 +107,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('products/' . $product->id . '/edit') }}" data-toggle="tooltip" title="Edit">
+                                            <a class="btn btn-sm btn-info btn-block" href="{{ route('admin.products.edit', $product->slug) }}" data-toggle="tooltip" title="Edit">
                                                 Edit
                                             </a>
                                         </td>

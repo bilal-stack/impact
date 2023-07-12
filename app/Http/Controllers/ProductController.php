@@ -71,6 +71,57 @@ class ProductController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Product $product)
+    {
+        $product->load('category', 'subCategory');
+        $categories = Category::all();
+
+        return view('product.edit')->with(compact('product', 'categories'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  Product $product
+     * @throws
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Product $product)
+    {
+        $request->validate([
+            'title'         => ['required', 'string', 'max:255'],
+            'category'      => ['required', 'string', 'exists:categories,id'],
+            'sub_category'  => ['nullable', 'string', 'exists:sub_categories,id'],
+            'tagline'       => ['nullable', 'string', 'max:255'],
+            'description'   => ['nullable', 'string', 'max:5000'],
+            'document'      => ['nullable', 'max:5000']
+        ]);
+
+        $request->merge(['category_id' => $request->category, 'sub_category_id' => $request->sub_category]);
+
+        $product->update($request->except('_token', '_method', 'category', 'sub_category', 'document'));
+
+        if ($request->has('document')) {
+            $media = $product->getMedia('product-images');
+            if (isset($media[0])) {
+                $media[0]->delete();
+            }
+
+            $product->addMedia(storage_path('tmp/uploads/' . Auth::id() . '/' . $request->document))->toMediaCollection('product-images', 'product-images');
+        }
+
+        deleteTempFolder('tmp/uploads/' . Auth::id());
+
+        return redirect()->route('admin.products.list')->with('success', 'Edited Successfully');
+    }
+
+    /**
      * Attach product variations.
      *
      * @param  Product $product
@@ -240,29 +291,6 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
     {
         //
     }

@@ -68,6 +68,8 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
         Route::get('index', [\App\Http\Controllers\ProductController::class, 'index'])->name('products.list');
         Route::get('create', [\App\Http\Controllers\ProductController::class, 'create'])->name('products.create');
         Route::post('store', [\App\Http\Controllers\ProductController::class, 'store'])->name('products.store');
+        Route::get('/{product}/edit', [\App\Http\Controllers\ProductController::class, 'edit'])->name('products.edit');
+        Route::post('/{product}/update', [\App\Http\Controllers\ProductController::class, 'update'])->name('products.update');
 
 //        Variations
         Route::get('attach-variations/{product}', [\App\Http\Controllers\ProductController::class, 'attachVariations'])->name('products.variations.attach');
